@@ -26,7 +26,6 @@ import com.example.diplomv2.ui.theme.CustomOutlinedTextField
 fun LoginScreen(
     navigation: NavHostController,
     paddingValues: PaddingValues,
-  //  viewModels: LogicMyViewModel
 ) {
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }

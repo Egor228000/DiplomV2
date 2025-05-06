@@ -93,7 +93,6 @@ fun GameScreen(
         wasDialogShown = true
     }
 
-    // Dialog shown after finishing last task
     if (showAllDoneDialog) {
         AlertDialog(
             onDismissRequest = {},

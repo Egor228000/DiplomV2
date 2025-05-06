@@ -29,7 +29,7 @@ class ExpressQuizViewModel(
 
     fun saveExpressStat(correctAnswers: Int) {
         viewModelScope.launch {
-            val starsEarned = correctAnswers.coerceAtMost(0) // или 0, если в экспресс-режиме не считаются звёзды
+            val starsEarned = correctAnswers.coerceAtMost(0)
             val entry = StatisticsEntry(
                 levelId = -1,
                 correctAnswers = correctAnswers,

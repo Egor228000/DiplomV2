@@ -8,7 +8,6 @@ import androidx.navigation.NavHostController
 fun AchievementScreen(
     navigation: NavHostController,
     paddingValues: PaddingValues,
-   // viewModels: LogicMyViewModel
 ) {
 
 }

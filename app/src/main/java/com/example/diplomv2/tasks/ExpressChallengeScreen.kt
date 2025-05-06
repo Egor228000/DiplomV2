@@ -232,5 +232,4 @@ fun generateProblem(): MathProblem {
     )
 }
 
-// Вспомогательная структура (если не хочешь писать data class):
 data class Quad(val a: Int, val b: Int, val question: String, val correct: Int)

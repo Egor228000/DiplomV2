@@ -30,7 +30,6 @@ import com.example.diplomv2.data.Screens
 fun LearningScreen(
     navigation: NavHostController,
     paddingValues: PaddingValues,
-    // viewModels: LogicMyViewModel
 ) {
 
     LazyColumn(

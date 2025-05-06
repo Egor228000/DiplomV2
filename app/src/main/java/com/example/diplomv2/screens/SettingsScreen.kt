@@ -20,7 +20,6 @@ import com.example.diplomv2.data.Screens
 fun SettingsScreen(
     navigation: NavHostController,
     paddingValues: PaddingValues,
-    //  viewModels: LogicMyViewModel
 ) {
 
     LazyColumn(

@@ -40,7 +40,6 @@ fun LearnSubtractionScreen(
         items(1) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
 
-                // Заголовок
                 Text(
                     text = "Что такое вычитание?",
                     fontSize = 28.sp,
@@ -48,14 +47,12 @@ fun LearnSubtractionScreen(
                     color = Color(0xFF2D2D2D)
                 )
 
-                // Объяснение
                 Text(
                     text = "Вычитание — это когда мы что-то убираем или теряем.\nНапример, у тебя было 5 яблок 🍎, ты съел 2 🍎. Сколько осталось?",
                     fontSize = 18.sp,
                     color = Color.DarkGray
                 )
 
-                // Пример в числах
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -73,14 +70,12 @@ fun LearnSubtractionScreen(
                     )
                 }
 
-                // Визуальный пример с эмодзи
                 Text(
                     text = "🍎🍎🍎🍎🍎  -  🍎🍎  =  🍎🍎🍎",
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center
                 )
 
-                // Подсказка
                 Text(
                     text = "Подсказка: представь, что убираешь игрушки — вот это и есть вычитание!",
                     fontSize = 16.sp,
@@ -88,7 +83,6 @@ fun LearnSubtractionScreen(
                     color = Color(0xFF555555)
                 )
 
-                // Блок "Что нужно знать"
                 Text(
                     text = "🔍 Что нужно знать:",
                     fontSize = 20.sp,
@@ -99,7 +93,6 @@ fun LearnSubtractionScreen(
                 Text("✔ Мы всегда начинаем с большего числа и убираем меньшее.", fontSize = 16.sp)
                 Text("✔ Если уберём всё — останется 0!", fontSize = 16.sp)
 
-                // Примеры
                 Text(
                     text = "Примеры:",
                     fontSize = 20.sp,
@@ -113,7 +106,6 @@ fun LearnSubtractionScreen(
                 Text("🐻 3 - 2 = 1", fontSize = 18.sp)
                 Text("⚽ 7 - 7 = 0", fontSize = 18.sp)
 
-                // Заключение
                 Text(
                     text = "Вычитание — как делиться: было много, поделился — стало меньше!",
                     fontSize = 16.sp,

@@ -30,7 +30,6 @@ import com.example.diplomv2.data.Screens
 fun MainScreen(
     navigation: NavHostController,
     paddingValues: PaddingValues,
-  //  viewModels: LogicMyViewModel
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),

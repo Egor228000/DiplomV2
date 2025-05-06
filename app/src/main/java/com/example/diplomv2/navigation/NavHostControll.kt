@@ -52,35 +52,30 @@ fun NavHostControll(
             ReginScreen(
                 navigation,
                 paddingValues,
-              //  viewModels
             )
         }
         composable(Screens.Login.route) {
             LoginScreen(
                 navigation,
                 paddingValues,
-             //   viewModels
             )
         }
         composable(Screens.Main.route) {
             MainScreen(
                 navigation,
                 paddingValues,
-               // viewModels
             )
         }
         composable(Screens.Achievement.route) {
             AchievementScreen(
                 navigation,
                 paddingValues,
-              //  viewModels
             )
         }
         composable(Screens.Settings.route) {
             SettingsScreen(
                 navigation,
                 paddingValues,
-             //   viewModels
             )
         }
 
@@ -119,42 +114,36 @@ fun NavHostControll(
             LearningScreen(
                 navigation,
                 paddingValues,
-              //  viewModels
             )
         }
         composable(Screens.LearnAddition.route) {
             LearnAdditionScreen(
                 navigation,
                 paddingValues,
-                // viewModels
             )
         }
         composable(Screens.LearnSubtraction.route) {
             LearnSubtractionScreen(
                 navigation,
                 paddingValues,
-                //  viewModels
             )
         }
         composable(Screens.LearnMultiplication.route) {
             LearnMultiplicationScreen(
                 navigation,
                 paddingValues,
-                //    viewModels
             )
         }
         composable(Screens.LearnDivision.route) {
             LearnDivisionScreen(
                 navigation,
                 paddingValues,
-                //   viewModels
             )
         }
         composable(Screens.LearnShapes.route) {
             LearnShapesScreen(
                 navigation,
                 paddingValues,
-                //     viewModels
             )
         }
     }

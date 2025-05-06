@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
             val navBackStackEntry by navigation.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
 
-            // Основной экран
             Scaffold(
                 topBar = {
                     TopAppBar(

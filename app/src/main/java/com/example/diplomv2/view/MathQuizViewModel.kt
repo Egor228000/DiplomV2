@@ -31,7 +31,7 @@ class MathQuizViewModel(
     private val _currentProblemIndex = MutableStateFlow(0)
     val currentProblemIndex: StateFlow<Int> = _currentProblemIndex.asStateFlow()
 
-    private val _selectedOption = MutableStateFlow<Int?>(null) // Состояние выбранного ответа
+    private val _selectedOption = MutableStateFlow<Int?>(null)
     val selectedOption: StateFlow<Int?> = _selectedOption.asStateFlow()
 
     val currentAnswerResult = MutableStateFlow<Boolean?>(null)
@@ -109,14 +109,15 @@ class MathQuizViewModel(
         }
     }
 
+    // Подчет звезд
     private fun calculateStars(correct: Int, total: Int): Int {
         return when (correct) {
-            total -> 5  // Все ответы правильные — 5 звёзд
-            total - 1 -> 4  // 4 правильных ответа — 4 звезды
-            total - 2 -> 3  // 3 правильных ответа — 3 звезды
-            total - 3 -> 2  // 2 правильных ответа — 2 звезды
-            total - 4 -> 1  // 1 правильный ответ — 1 звезда
-            else -> 0  // 0 правильных ответов — 0 звёзд
+            total -> 5
+            total - 1 -> 4
+            total - 2 -> 3
+            total - 3 -> 2
+            total - 4 -> 1
+            else -> 0
         }
     }
 
@@ -126,7 +127,7 @@ class MathQuizViewModel(
         viewModelScope.launch {
             // Если уровень уже завершён — удалить старую статистику
             if (level.isCompleted) {
-                statisticsDao.deleteStat(level.id)  // ← добавь такой метод в DAO
+                statisticsDao.deleteStat(level.id)
                 // Сбросим уровень в списке
                 _levels.value = _levels.value.map {
                     if (it.id == level.id) it.copy(isCompleted = false, starsEarned = 0)

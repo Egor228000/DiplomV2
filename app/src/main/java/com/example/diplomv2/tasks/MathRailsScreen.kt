@@ -51,10 +51,6 @@ fun MathRailsScreen(
             .padding(16.dp)
             .fillMaxSize()
     ) {
-        // Шапка с названием игры
-
-
-        // Описание игры
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -67,7 +63,6 @@ fun MathRailsScreen(
             }
         }
 
-        // Уровни сложности
         Text(
             text = "Выбери уровень сложности:",
             modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
@@ -79,7 +74,7 @@ fun MathRailsScreen(
         ) {
             items(levels) { level ->
                 LevelCard(
-                    level = level, // Теперь передаём объект Level
+                    level = level,
                     onClick = {
                         mathQuizViewModel.selectLevel(levels.indexOf(level))
                         navigation.navigate(Screens.Game.route)
@@ -87,7 +82,6 @@ fun MathRailsScreen(
                 )
             }
             items(1) {
-                // Кнопка начала игры
                 CustomButton(
                     onClick = { navigation.navigate(Screens.Game.route) },
                     "Начать игру",
@@ -103,7 +97,7 @@ fun MathRailsScreen(
 
 @Composable
 fun LevelCard(
-    level: Level, // Принимаем объект Level вместо Int
+    level: Level,
     onClick: () -> Unit
 ) {
     Card(
@@ -117,13 +111,12 @@ fun LevelCard(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = level.title, // Теперь обращаемся к полю title объекта Level
+                text = level.title,
                 textAlign = TextAlign.Center,
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.padding(top = 16.dp))
 
-            // Если уровень завершён, отображаем звезды
             if (level.isCompleted) {
                 Row(
                     horizontalArrangement = Arrangement.Center,
@@ -135,7 +128,6 @@ fun LevelCard(
                             R.raw.stars
                         )
                     )
-                    // Закрашиваем звезды на основе количества решенных задач
                     repeat(level.starsEarned) {
 
                         LottieAnimation(
@@ -149,7 +141,6 @@ fun LevelCard(
                             R.raw.no_stars
                         )
                     )
-                    // Закрашиваем оставшиеся звезды серым цветом
                     repeat(5 - level.starsEarned) {
 
                         LottieAnimation(

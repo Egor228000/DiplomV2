@@ -83,13 +83,12 @@ fun StatisticsScreen(
     }
 
 
-
     // Подготовка данных для общего графика
     val totalLineData = listOf(
         Line(
             label = "Общее количество правильных ответов",
             values = totalStats.map { it.second.toDouble() },
-            color = SolidColor(Color(0xFF00FF27)), // Красный цвет для общего графика
+            color = SolidColor(Color(0xFF00FF27)),
             firstGradientFillColor = Color(0xFF2F813B).copy(alpha = .7f),
             secondGradientFillColor = Color.Transparent,
             strokeAnimationSpec = tween(2000, easing = EaseInOutCubic),
@@ -98,138 +97,142 @@ fun StatisticsScreen(
         )
     )
     AndroidView(
-        modifier = Modifier.background(Color.White).fillMaxSize()
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxSize()
             .onGloballyPositioned { }, // required to render first
         factory = { ctx ->
             ComposeView(ctx).apply {
                 setContent {
-                        LazyColumn(
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxSize()
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxSize()
 
-                        ) {
+                    ) {
 
-                            items(1) {
-// Показать общий график по всем уровням
-                                Text(
-                                    "Общее количество правильных ответов по уровням",
-                                    fontSize = 18.sp
-                                )
+                        items(1) {
+                            Text(
+                                "Общее количество правильных ответов по уровням",
+                                fontSize = 18.sp
+                            )
+                            LineChart(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(300.dp)
+                                    .padding(horizontal = 22.dp),
+
+                                data = totalLineData,
+                                animationMode = AnimationMode.Together(delayBuilder = { it * 500L }),
+                            )
+                        }
+                        items(1) {
+                            Text(
+                                "Общее количество правильных ответов по уровням",
+                                fontSize = 18.sp
+                            )
+                            totalStats.forEach { (levelTitle, totalCorrectAnswers) ->
+                                Spacer(modifier = Modifier.padding(top = 8.dp))
+                                Text("$levelTitle: $totalCorrectAnswers")
+                            }
+                        }
+
+                        items(1) {
+                            val expressStats by expressQuizViewModel.expressStats.collectAsState()
+
+                            Text("📊 Статистика 'Скоростной экспресс'", fontSize = 18.sp)
+                            if (expressStats.isEmpty()) {
+                                Text("Нет данных.", fontSize = 18.sp)
+                            } else {
+                                val data = expressStats.map { it.correctAnswers.toDouble() }
+
                                 LineChart(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .height(300.dp)
                                         .padding(horizontal = 22.dp),
-
-                                    data = totalLineData,
-                                    animationMode = AnimationMode.Together(delayBuilder = { it * 500L }),
+                                    data = listOf(
+                                        Line(
+                                            label = "Правильные ответы за 60 секунд",
+                                            values = data,
+                                            color = SolidColor(Color(0xFF56CCF2)),
+                                            firstGradientFillColor = Color(0xFF2D9CDB).copy(
+                                                alpha = .5f
+                                            ),
+                                            secondGradientFillColor = Color.Transparent,
+                                            strokeAnimationSpec = tween(
+                                                2000,
+                                                easing = EaseInOutCubic
+                                            ),
+                                            gradientAnimationDelay = 1000,
+                                            drawStyle = DrawStyle.Stroke(width = 2.dp),
+                                        )
+                                    ),
+                                    animationMode = AnimationMode.Together(delayBuilder = { it * 500L })
                                 )
                             }
-                            items(1) {
-                                // Дополнительно показываем общую статистику по уровням
-                                Text(
-                                    "Общее количество правильных ответов по уровням",
-                                    fontSize = 18.sp
+                        }
+                        items(1) {
+                            val shapeStats by shapeGameViewModel.shapeStats.collectAsState()
+
+                            Text("📊 Статистика 'Геометрическая станция'")
+                            if (shapeStats.isEmpty()) {
+                                Text("Нет данных.")
+                            } else {
+                                val shapeData = shapeStats.map { it.correctAnswers.toDouble() }
+
+                                LineChart(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(300.dp)
+                                        .padding(horizontal = 22.dp),
+                                    data = listOf(
+                                        Line(
+                                            label = "Правильные ответы за 60 секунд",
+                                            values = shapeData,
+                                            color = SolidColor(Color(0xFFFFB703)),
+                                            firstGradientFillColor = Color(0xFFFFD166).copy(
+                                                alpha = .5f
+                                            ),
+                                            secondGradientFillColor = Color.Transparent,
+                                            strokeAnimationSpec = tween(
+                                                2000,
+                                                easing = EaseInOutCubic
+                                            ),
+                                            gradientAnimationDelay = 1000,
+                                            drawStyle = DrawStyle.Stroke(width = 2.dp),
+                                        )
+                                    ),
+                                    animationMode = AnimationMode.Together(delayBuilder = { it * 500L })
                                 )
-                                totalStats.forEach { (levelTitle, totalCorrectAnswers) ->
-                                    Spacer(modifier = Modifier.padding(top = 8.dp))
-                                    Text("$levelTitle: $totalCorrectAnswers")
-                                }
                             }
+                            Spacer(modifier = Modifier.padding(bottom = 18.dp))
+                            Button(onClick = {
+                                mathQuizViewModel.viewModelScope.launch {
+                                    textRef.value?.let { view ->
+                                        val bitmap = Bitmap.createBitmap(
+                                            view.width,
+                                            view.height,
+                                            Bitmap.Config.ARGB_8888
+                                        )
+                                        val canvas = Canvas(bitmap)
+                                        view.draw(canvas)
+                                        bitmapRef.value = bitmap
 
-                            items(1) {
-                                val expressStats by expressQuizViewModel.expressStats.collectAsState()
-
-                                Text("📊 Статистика 'Скоростной экспресс'", fontSize = 18.sp)
-                                if (expressStats.isEmpty()) {
-                                    Text("Нет данных.", fontSize = 18.sp)
-                                } else {
-                                    val data = expressStats.map { it.correctAnswers.toDouble() }
-
-                                    LineChart(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(300.dp)
-                                            .padding(horizontal = 22.dp),
-                                        data = listOf(
-                                            Line(
-                                                label = "Правильные ответы за 60 секунд",
-                                                values = data,
-                                                color = SolidColor(Color(0xFF56CCF2)),
-                                                firstGradientFillColor = Color(0xFF2D9CDB).copy(
-                                                    alpha = .5f
-                                                ),
-                                                secondGradientFillColor = Color.Transparent,
-                                                strokeAnimationSpec = tween(
-                                                    2000,
-                                                    easing = EaseInOutCubic
-                                                ),
-                                                gradientAnimationDelay = 1000,
-                                                drawStyle = DrawStyle.Stroke(width = 2.dp),
-                                            )
-                                        ),
-                                        animationMode = AnimationMode.Together(delayBuilder = { it * 500L })
-                                    )
-                                }
-                            }
-                            items(1) {
-                                val shapeStats by shapeGameViewModel.shapeStats.collectAsState()
-
-                                Text("📊 Статистика 'Геометрическая станция'")
-                                if (shapeStats.isEmpty()) {
-                                    Text("Нет данных.")
-                                } else {
-                                    val shapeData = shapeStats.map { it.correctAnswers.toDouble() }
-
-                                    LineChart(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(300.dp)
-                                            .padding(horizontal = 22.dp),
-                                        data = listOf(
-                                            Line(
-                                                label = "Правильные ответы за 60 секунд",
-                                                values = shapeData,
-                                                color = SolidColor(Color(0xFFFFB703)),
-                                                firstGradientFillColor = Color(0xFFFFD166).copy(
-                                                    alpha = .5f
-                                                ),
-                                                secondGradientFillColor = Color.Transparent,
-                                                strokeAnimationSpec = tween(
-                                                    2000,
-                                                    easing = EaseInOutCubic
-                                                ),
-                                                gradientAnimationDelay = 1000,
-                                                drawStyle = DrawStyle.Stroke(width = 2.dp),
-                                            )
-                                        ),
-                                        animationMode = AnimationMode.Together(delayBuilder = { it * 500L })
-                                    )
-                                }
-                                Spacer(modifier = Modifier.padding(bottom = 18.dp))
-                                Button(onClick = {
-                                    mathQuizViewModel.viewModelScope.launch {
-                                        textRef.value?.let { view ->
-                                            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-                                            val canvas = Canvas(bitmap)
-                                            view.draw(canvas)
-                                            bitmapRef.value = bitmap
-
-                                            // Сохранение в галерею
-                                            bitmapRef.value?.let { bitmap ->
-                                                saveBitmapToGallery(context, bitmap)
-                                            }
+                                        // Сохранение в галерею
+                                        bitmapRef.value?.let { bitmap ->
+                                            saveBitmapToGallery(context, bitmap)
                                         }
                                     }
-                                }) {
-                                    Text("Сохранить PNG в галерею")
                                 }
-
+                            }) {
+                                Text("Сохранить PNG в галерею")
                             }
 
                         }
+
+                    }
                 }
                 textRef.value = this
             }
@@ -254,7 +257,8 @@ fun saveBitmapToGallery(context: Context, bitmap: Bitmap) {
 
         // Получаем URI для сохранения изображения
         val contentResolver = context.contentResolver
-        val imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        val imageUri =
+            contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
         // Если URI не пустой, сохраняем изображение
         imageUri?.let { uri ->
@@ -282,71 +286,3 @@ fun generateFileName(): String {
 }
 
 
-
-
-
-/*
-
-
-
-Column(
-modifier = Modifier
-.padding(16.dp)
-.fillMaxSize(),
-) {
-    AndroidView(
-        modifier = Modifier
-            .size(200.dp)
-            .onGloballyPositioned { }, // required to render first
-        factory = { ctx ->
-            ComposeView(ctx).apply {
-                setContent {
-                    Box(Modifier.background(Color.White).padding(16.dp)) {
-
-                        LineChart(
-                            modifier = Modifier.fillMaxSize().padding(horizontal = 22.dp),
-                            data = remember {
-                                listOf(
-
-                                    Line(
-                                        label = "Windows",
-                                        values = listOf(28.0, 41.0, 5.0, 10.0, 35.0),
-                                        color = SolidColor(Color(0xFF23af92)),
-                                        firstGradientFillColor = Color(0xFF2BC0A1).copy(alpha = .5f),
-                                        secondGradientFillColor = Color.Transparent,
-                                        strokeAnimationSpec = tween(
-                                            2000,
-                                            easing = EaseInOutCubic
-                                        ),
-                                        gradientAnimationDelay = 1000,
-                                        drawStyle = DrawStyle.Stroke(width = 2.dp),
-                                    )
-                                )
-                            },
-                            animationMode = AnimationMode.Together(delayBuilder = {
-                                it * 500L
-                            }),
-                        )
-                    }
-                }
-                textRef.value = this
-            }
-        }
-    )
-
-    Spacer(Modifier.height(16.dp))
-
-    Button(onClick = {
-        textRef.value?.let { view ->
-            val bitmap = createBitmap(view.width, view.height)
-            val canvas = Canvas(bitmap)
-            view.draw(canvas)
-            bitmapRef.value = bitmap
-
-            // Сохраняем PNG
-            saveBitmapToStorage(context, bitmap, "text_image.png")
-        }
-    }) {
-        Text("Сохранить PNG")
-    }
-}*/

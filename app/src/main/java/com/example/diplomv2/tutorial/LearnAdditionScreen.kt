@@ -30,7 +30,6 @@ fun LearnAdditionScreen(
         item {
             Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
 
-                // Title
                 Text(
                     text = "Что такое сложение?",
                     fontSize = 28.sp,
@@ -38,7 +37,6 @@ fun LearnAdditionScreen(
                     color = Color(0xFF2D2D2D)
                 )
 
-                // Intro
                 Text(
                     text = "Сложение — это когда мы прибавляем одно число к другому.\n" +
                             "Например, если у тебя есть 2 яблока 🍎 и ты нашёл ещё 3 🍎, то всего у тебя 5!",
@@ -46,7 +44,6 @@ fun LearnAdditionScreen(
                     color = Color.DarkGray
                 )
 
-                // Visual math
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -67,7 +64,6 @@ fun LearnAdditionScreen(
                 )
 
 
-                // Quick Tips
                 Text(
                     text = "🔍 Что нужно знать:",
                     fontSize = 20.sp,
@@ -78,7 +74,6 @@ fun LearnAdditionScreen(
                 Text("• Результат сложения называют *суммой*", fontSize = 16.sp)
 
 
-                // Fun Tip
                 Text(
                     text = "Совет: сначала посчитай на пальцах, потом в уме!",
                     fontSize = 16.sp,
@@ -87,7 +82,6 @@ fun LearnAdditionScreen(
                 )
 
 
-                // Practice examples
                 Text(
                     text = "🧠 Попробуй сам:",
                     fontSize = 20.sp,
@@ -112,7 +106,6 @@ fun LearnAdditionScreen(
                 }
 
 
-                // Summary
                 Text(
                     text = "Сложение — как собирать подарки! 🎁 Чем больше складываешь, тем веселее!",
                     fontSize = 16.sp,

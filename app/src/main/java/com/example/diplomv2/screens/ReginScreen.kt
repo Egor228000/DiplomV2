@@ -25,7 +25,6 @@ import com.example.diplomv2.ui.theme.CustomOutlinedTextField
 fun ReginScreen(
     navigation: NavHostController,
     paddingValues: PaddingValues,
-  //  viewModels: LogicMyViewModel
 ) {
 
     var login by remember { mutableStateOf("") }

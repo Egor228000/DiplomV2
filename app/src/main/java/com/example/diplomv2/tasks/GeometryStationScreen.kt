@@ -179,7 +179,6 @@ fun generateShapeProblem(): ShapeProblem {
     return ShapeProblem(correct, options.shuffled(), color)
 }
 
-// Новая функция для получения формы с соотношением сторон
 data class ShapeWithSize(val shape: Shape, val widthRatio: Float, val heightRatio: Float)
 
 fun getShapeWithSize(name: String): ShapeWithSize {

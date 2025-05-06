@@ -48,7 +48,6 @@ fun WelcomScreen(
         HorizontalPager(state = pagerState) { page ->
 
 
-            // Our page content
             when (page) {
                 0 -> {
                     Box(
@@ -59,7 +58,6 @@ fun WelcomScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            // Контент по центру
                             CustomText(
                                 "Привет, маленький математик!\n" +
                                         "Давай вместе изучать цифры и решать весёлые задачки!",
@@ -107,7 +105,6 @@ fun WelcomScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            // Контент по центру
                             CustomText(
                                 "Весёлые задания на время!\n" +
                                         "Собирай звёздочки за правильные ответы и становись чемпионом по математике!",
@@ -128,7 +125,6 @@ fun WelcomScreen(
                                 iterations = LottieConstants.IterateForever
                             )
                         }
-                        // Кнопка внизу экрана
                         CustomButton(
                             onClick = {
                                 scope.launch {
@@ -156,7 +152,6 @@ fun WelcomScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            // Контент по центру
                             CustomText(
                                 "Шаг за шагом к успеху!\n" +
                                         "Каждое правильно решённое задание - это новый шаг в мир математики!",
@@ -183,7 +178,6 @@ fun WelcomScreen(
                             )
                         }
 
-                        // Кнопка внизу экрана
                         CustomButton(
                             onClick = { navigation.navigate(Screens.Regin.route) },
                             textButton = "Начать учиться",

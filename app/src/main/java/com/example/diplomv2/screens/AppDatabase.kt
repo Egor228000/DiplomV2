@@ -40,8 +40,7 @@ interface StatisticsDao {
 @Database(entities = [ShapeStatEntity::class, StatisticsEntry::class], version = 7)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun shapeStatDao(): ShapeStatDao  // ✅ Должно быть это
-
+    abstract fun shapeStatDao(): ShapeStatDao
     abstract fun statisticsDao(): StatisticsDao
 
     companion object {
