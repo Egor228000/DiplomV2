@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.diplomv2.data.Screens
 import com.example.diplomv2.screens.AchievementScreen
+import com.example.diplomv2.screens.AiScreen
 import com.example.diplomv2.tasks.ExpressChallengeScreen
 import com.example.diplomv2.tasks.GameScreen
 import com.example.diplomv2.tasks.GeometryStationScreen
@@ -25,6 +26,7 @@ import com.example.diplomv2.tutorial.LearnDivisionScreen
 import com.example.diplomv2.tutorial.LearnMultiplicationScreen
 import com.example.diplomv2.tutorial.LearnShapesScreen
 import com.example.diplomv2.tutorial.LearnSubtractionScreen
+import com.example.diplomv2.view.AiBotViewModel
 import com.example.diplomv2.view.ExpressQuizViewModel
 import com.example.diplomv2.view.MathQuizViewModel
 import com.example.diplomv2.view.ShapeGameViewModel
@@ -35,7 +37,8 @@ fun NavHostControll(
     paddingValues: PaddingValues,
     mathQuizViewModel: MathQuizViewModel,
     expressQuizViewModel: ExpressQuizViewModel,
-    shapeGameViewModel: ShapeGameViewModel
+    shapeGameViewModel: ShapeGameViewModel,
+    aiBotViewModel: AiBotViewModel
 ) {
     NavHost(
         navController = navigation,
@@ -144,6 +147,12 @@ fun NavHostControll(
             LearnShapesScreen(
                 navigation,
                 paddingValues,
+            )
+        }
+        composable(Screens.Ai.route) {
+            AiScreen(
+                navigation,
+                aiBotViewModel
             )
         }
     }

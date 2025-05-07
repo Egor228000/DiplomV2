@@ -47,10 +47,12 @@ android {
 }
 
 dependencies {
-    // Room dependencies
+    implementation("com.mikepenz:multiplatform-markdown-renderer:0.34.0-rc03")
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
 
-    // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
-    // See Add the KSP plugin to your project
     ksp(libs.androidx.room.compiler)
 
     implementation (libs.androidx.room.runtime)

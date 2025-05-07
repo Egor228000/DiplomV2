@@ -25,5 +25,9 @@ enum class Screens(val route: String) {
     LearnSubtraction("learn_subtraction"),
     LearnMultiplication("learn_multiplication"),
     LearnDivision("learn_division"),
-    LearnShapes("learn_shapes")
+    LearnShapes("learn_shapes"),
+
+
+    // ИИ
+    Ai("ai")
 }

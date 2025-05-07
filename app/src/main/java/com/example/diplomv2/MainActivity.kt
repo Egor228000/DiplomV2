@@ -7,8 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -28,6 +30,7 @@ import com.example.diplomv2.data.Screens
 import com.example.diplomv2.navigation.NavHostControll
 import com.example.diplomv2.screens.AppDatabase
 import com.example.diplomv2.tasks.ShapeRepository
+import com.example.diplomv2.view.AiBotViewModel
 import com.example.diplomv2.view.ExpressQuizViewModel
 import com.example.diplomv2.view.ExpressQuizViewModelFactory
 import com.example.diplomv2.view.MathQuizViewModel
@@ -56,6 +59,7 @@ class MainActivity : ComponentActivity() {
             val shapeViewModel: ShapeGameViewModel = viewModel(
                 factory = ShapeGameViewModelFactory(shapeRepository)
             )
+            val aiBotViewModel = AiBotViewModel()
             val navigation = rememberNavController()
             val navBackStackEntry by navigation.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
@@ -99,6 +103,7 @@ class MainActivity : ComponentActivity() {
                                     Screens.LearnShapes.route -> "Фигуры"
                                     Screens.Achievement.route -> "Достижение и награды"
                                     Screens.Statistics.route -> "Статистика"
+                                    Screens.Ai.route -> "Бот математики"
 
                                     else -> {
                                         "Настройки"
@@ -127,14 +132,31 @@ class MainActivity : ComponentActivity() {
                         }
 
                     )
+                },
+                
+                floatingActionButton = {
+                    when(currentRoute) {
+                        Screens.Main.route -> {
+                            FloatingActionButton(
+                                onClick = {
+                                    navigation.navigate(Screens.Ai.route)
+                                }
+                            ) {
+                                Icon(Icons.Default.MailOutline, null)
+                            }
+                        }
+                    }
+
                 }
+
             ) { padding ->
                 NavHostControll(
                     navigation,
                     padding,
                     mathViewModel,
                     expressViewModel,
-                    shapeViewModel
+                    shapeViewModel,
+                    aiBotViewModel
                 )
             }
         }
