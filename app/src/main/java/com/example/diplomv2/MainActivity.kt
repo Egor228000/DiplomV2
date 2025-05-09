@@ -39,6 +39,8 @@ import com.example.diplomv2.view.ShapeGameViewModel
 import com.example.diplomv2.view.ShapeGameViewModelFactory
 
 class MainActivity : ComponentActivity() {
+    val aiBotViewModel = AiBotViewModel()
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +61,6 @@ class MainActivity : ComponentActivity() {
             val shapeViewModel: ShapeGameViewModel = viewModel(
                 factory = ShapeGameViewModelFactory(shapeRepository)
             )
-            val aiBotViewModel = AiBotViewModel()
             val navigation = rememberNavController()
             val navBackStackEntry by navigation.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route

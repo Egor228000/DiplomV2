@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.engine.cio.endpoint
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.request
 import io.ktor.client.request.setBody
@@ -77,12 +78,13 @@ class AiBotViewModel : ViewModel() {
 
     private suspend fun getFullChatResponse(text: String): String {
         val client = HttpClient(CIO) {
+            install(HttpTimeout) {
+                requestTimeoutMillis = 600_000 // 10 минут — полный запрос
+                connectTimeoutMillis = 60_000  // 1 минута на подключение
+                socketTimeoutMillis = 600_000  // 10 минут — ожидание ответа
+            }
             engine {
-                requestTimeout = 80000
-                endpoint {
-                    connectTimeout = 80000
-                    socketTimeout = 80000
-                }
+                requestTimeout = 0  // отключаем встроенный CIO timeout
             }
             install(ContentNegotiation) {
                 json(Json {
@@ -92,23 +94,30 @@ class AiBotViewModel : ViewModel() {
             }
         }
 
-        val response: HttpResponse = client.request("http://00000000000/v1/chat/completions") {
-            method = HttpMethod.Post
-            contentType(ContentType.Application.Json)
-            setBody(
-                ChatRequest(
-                    model = "gemma-3-4b-it",
-                    messages = listOf(ChatMessage("user", text)),
-                    temperature = 0.7,
-                    max_tokens = 1000
-                )
-            )
+        return try {
+            val response: HttpResponse =
+                client.request("/v1/chat/completions") {
+                    method = HttpMethod.Post
+                    contentType(ContentType.Application.Json)
+                    setBody(
+                        ChatRequest(
+                            model = "gemma-3-1b-it-qat",
+                            messages = listOf(ChatMessage("user", "Пиши все по русски\n${text}")),
+                            temperature = 0.7,
+                            max_tokens = 300
+                        )
+                    )
+                }
+
+            val responseBody = response.bodyAsText()
+            val chatResponse = json.decodeFromString<ChatResponse>(responseBody)
+            chatResponse.choices.firstOrNull()?.message?.content ?: "Бот не дал ответа"
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Произошла ошибка: ${e.localizedMessage ?: "Неизвестная ошибка"}"
+        } finally {
+            client.close() // Обязательно закрываем клиент
         }
-
-        val responseBody = response.bodyAsText()
-        val chatResponse = json.decodeFromString<ChatResponse>(responseBody)
-
-        return chatResponse.choices.firstOrNull()?.message?.content ?: "Ответ не получен"
     }
 }
-
