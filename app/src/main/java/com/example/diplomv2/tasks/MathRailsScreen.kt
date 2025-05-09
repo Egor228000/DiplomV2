@@ -81,14 +81,7 @@ fun MathRailsScreen(
                     }
                 )
             }
-            items(1) {
-                CustomButton(
-                    onClick = { navigation.navigate(Screens.Game.route) },
-                    "Начать игру",
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                )
-            }
+
         }
 
 

@@ -96,7 +96,7 @@ class AiBotViewModel : ViewModel() {
 
         return try {
             val response: HttpResponse =
-                client.request("/v1/chat/completions") {
+                client.request("v1/chat/completions") {
                     method = HttpMethod.Post
                     contentType(ContentType.Application.Json)
                     setBody(

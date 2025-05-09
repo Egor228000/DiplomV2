@@ -22,7 +22,7 @@ fun CustomButton(onClick: () -> Unit, textButton: String, modifier: Modifier) {
         modifier = modifier,
         shape = RoundedCornerShape(20),
         contentPadding = PaddingValues(16.dp),
-        colors = ButtonDefaults.buttonColors(Color(0xFFC42020)),
+        colors = ButtonDefaults.buttonColors(Color(0xF2FF3535)),
     ) {
         Text(
             textButton,
