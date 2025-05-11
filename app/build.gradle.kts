@@ -47,7 +47,8 @@ android {
 }
 
 dependencies {
-    implementation("com.mikepenz:multiplatform-markdown-renderer:0.34.0-rc03")
+    implementation (libs.androidx.datastore.preferences)
+    implementation(libs.multiplatform.markdown.renderer)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)

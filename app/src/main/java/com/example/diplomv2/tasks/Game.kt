@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -110,12 +112,17 @@ fun GameScreen(
         )
     }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+
+        .padding(top = 50.dp)
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
+
                 .verticalScroll(rememberScrollState())
-                .padding(16.dp)
                 .fillMaxSize()
         ) {
             Row(

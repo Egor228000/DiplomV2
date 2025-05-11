@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -35,13 +36,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun WelcomScreen(
     navigation: NavHostController,
-    paddingValues: PaddingValues,
 ) {
     val pagerState = rememberPagerState(pageCount = { 3 })
     val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
+            .padding(top = 50.dp)
             .padding(16.dp)
             .fillMaxSize(1f)
     ) {

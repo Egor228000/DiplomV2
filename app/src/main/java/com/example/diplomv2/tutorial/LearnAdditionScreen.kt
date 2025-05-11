@@ -20,10 +20,10 @@ import com.example.diplomv2.R
 @Composable
 fun LearnAdditionScreen(
     navigation: NavHostController,
-    paddingValues: PaddingValues
 ) {
     LazyColumn(
         modifier = Modifier
+            .padding(top = 50.dp)
             .fillMaxSize()
             .padding(16.dp)
     ) {

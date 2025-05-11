@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Card
@@ -38,6 +41,7 @@ import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,7 +65,9 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
     }
 
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+    ){
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -180,30 +186,40 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
             }
         }
 
-        Row(modifier = Modifier.fillMaxWidth()) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(1f),
-                value = inputText,
-                onValueChange = { inputText = it },
-                placeholder = { Text("Введите сообщение") },
-                trailingIcon = {
-                    IconButton(
-                        onClick = {
-                            if (inputText.isNotBlank()) {
-                                aiBotViewModel.sendText(inputText)
-                                inputText = ""
-                            }
-                        },
-                        enabled = !isLoading
-                    ) {
-                        if (isLoading) CircularProgressIndicator(Modifier.size(24.dp))
-                        else Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Send")
+        TextField(
+            modifier = Modifier.fillMaxWidth(1f),
+            value = inputText,
+            onValueChange = { inputText = it },
+            placeholder = { Text("Введите сообщение") },
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        if (inputText.isNotBlank()) {
+                            aiBotViewModel.sendText(inputText)
+                            inputText = ""
+                        }
+                    },
+                    enabled = !isLoading,
+
+                ) {
+                    if (isLoading) CircularProgressIndicator(Modifier.size(24.dp))
+                    else Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Send")
+                }
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Send
+            ),
+            keyboardActions = KeyboardActions(
+                onSend = {
+                    if (inputText.isNotBlank()) {
+                        aiBotViewModel.sendText(inputText)
+                        inputText = ""
                     }
                 }
+            ),
 
-            )
+        )
 
-        }
     }
 }
 

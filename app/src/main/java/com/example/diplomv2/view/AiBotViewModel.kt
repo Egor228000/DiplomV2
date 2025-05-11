@@ -1,5 +1,6 @@
 package com.example.diplomv2.view
 
+import android.util.Log.e
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.ktor.client.HttpClient
@@ -96,13 +97,13 @@ class AiBotViewModel : ViewModel() {
 
         return try {
             val response: HttpResponse =
-                client.request("v1/chat/completions") {
+                client.request("/v1/chat/completions") {
                     method = HttpMethod.Post
                     contentType(ContentType.Application.Json)
                     setBody(
                         ChatRequest(
                             model = "gemma-3-1b-it-qat",
-                            messages = listOf(ChatMessage("user", "Пиши все по русски\n${text}")),
+                            messages = listOf(ChatMessage("user", text)),
                             temperature = 0.7,
                             max_tokens = 300
                         )

@@ -6,9 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -17,19 +20,18 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -50,8 +52,11 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(Color(0x00FFFFFF).toArgb(), Color(0x00FFFFFF).toArgb()),
+            navigationBarStyle = SystemBarStyle.dark(Color(0xF2FF3535).toArgb())
+        )
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
 
         installSplashScreen()
@@ -75,12 +80,25 @@ class MainActivity : ComponentActivity() {
             val currentRoute = navBackStackEntry?.destination?.route
 
             Scaffold(
+                modifier = Modifier
+
+                    .navigationBarsPadding()
+
+                    .statusBarsPadding()
+
+                    .imePadding()
+
+
+                ,
                 topBar = {
                     TopAppBar(
                         navigationIcon = {
 
                             when(currentRoute) {
                                 Screens.Main.route -> {
+
+                                }
+                                Screens.Welcome.route -> {
 
                                 }
                                 else -> {
@@ -139,11 +157,13 @@ class MainActivity : ComponentActivity() {
                                 else -> {}
                             }
 
-                        }
+                        },
+
+
 
                     )
                 },
-                
+
                 floatingActionButton = {
                     when(currentRoute) {
                         Screens.Main.route -> {

@@ -37,7 +37,6 @@ import kotlin.random.Random
 @Composable
 fun GeometryStationScreen(
     navigation: NavHostController,
-    paddingValues: PaddingValues,
     shapeGameViewModel: ShapeGameViewModel
 ) {
     var currentProblem by remember { mutableStateOf(generateShapeProblem()) }
@@ -58,6 +57,7 @@ fun GeometryStationScreen(
     }
 
     Column(modifier = Modifier
+        .padding(top = 50.dp)
         .padding(16.dp)
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

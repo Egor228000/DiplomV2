@@ -49,6 +49,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Build
 import android.provider.MediaStore
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -107,6 +109,7 @@ fun StatisticsScreen(
                     LazyColumn(
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         modifier = Modifier
+                            .padding(top = 50.dp)
                             .padding(16.dp)
                             .fillMaxSize()
 

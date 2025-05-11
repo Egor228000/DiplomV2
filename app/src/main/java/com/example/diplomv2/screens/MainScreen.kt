@@ -16,8 +16,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -46,50 +48,59 @@ import com.example.diplomv2.data.Screens
 @Composable
 fun MainScreen(
     navigation: NavHostController,
-    paddingValues: PaddingValues,
 ) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.padding(16.dp).fillMaxSize(1f)
-    ) {
 
-        items(1) {
-            CardTask(
-                "Математические рельсы",
-                "Решай задачки и собирай золотые звёздочки! Чем больше решишь — тем длиннее твой поезд!",
-                onClick = { navigation.navigate(Screens.MathRails.route) },
-                icon = R.drawable.train_rails_fz82f7vze0gd
-            )
-        }
-        items(1) {
-            CardTask(
-                "Скоростной экспресс",
-                "Успей решить максимум примеров, пока не упёрся в станцию! Тик-так, время пошло!",
-                onClick = { navigation.navigate(Screens.ExpressChallenge.route) },
-                icon = R.drawable.express_qpl6mb6w73hk
-            )
-        }
-        items(1) {
-            CardTask(
-                "Геометрическая станция",
-                "Узнавай фигуры и собирай пазлы! Круглые колёса, квадратные окошки.",
-                onClick = { navigation.navigate(Screens.GeometryStation.route) },
-                icon = R.drawable.geometry_3wedqpqf6cj4
-            )
-        }
-        item {
-            CardTask(
-                "Обучайка",
-                "Освой правила и секреты математики! Теория, примеры, подсказки — всё в одном месте.",
-                onClick = { navigation.navigate(Screens.Learning.route) },
-                icon = R.drawable.learning_923qwd5bl1wh
-            )
-        }
-        items(1) {
-            Text("Новые вагончики с заданиями уже в пути! \uD83D\uDE82✨", fontSize = 20.sp, textAlign = TextAlign.Center, color = Color.Gray)
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
 
+                .padding(top = 50.dp)
+                .padding(16.dp)
+                .fillMaxSize()
+        ) {
+
+            items(1) {
+                CardTask(
+                    "Математические рельсы",
+                    "Решай задачки и собирай золотые звёздочки! Чем больше решишь — тем длиннее твой поезд!",
+                    onClick = { navigation.navigate(Screens.MathRails.route) },
+                    icon = R.drawable.train_rails_fz82f7vze0gd
+                )
+            }
+            items(1) {
+                CardTask(
+                    "Скоростной экспресс",
+                    "Успей решить максимум примеров, пока не упёрся в станцию! Тик-так, время пошло!",
+                    onClick = { navigation.navigate(Screens.ExpressChallenge.route) },
+                    icon = R.drawable.express_qpl6mb6w73hk
+                )
+            }
+            items(1) {
+                CardTask(
+                    "Геометрическая станция",
+                    "Узнавай фигуры и собирай пазлы! Круглые колёса, квадратные окошки.",
+                    onClick = { navigation.navigate(Screens.GeometryStation.route) },
+                    icon = R.drawable.geometry_3wedqpqf6cj4
+                )
+            }
+            item {
+                CardTask(
+                    "Обучайка",
+                    "Освой правила и секреты математики! Теория, примеры, подсказки — всё в одном месте.",
+                    onClick = { navigation.navigate(Screens.Learning.route) },
+                    icon = R.drawable.learning_923qwd5bl1wh
+                )
+            }
+            items(1) {
+                Text(
+                    "Новые вагончики с заданиями уже в пути! \uD83D\uDE82✨",
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    color = Color.Gray
+                )
+
+            }
         }
-    }
 }
 
 

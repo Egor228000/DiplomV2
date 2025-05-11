@@ -8,14 +8,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +43,6 @@ import kotlinx.serialization.Serializable
 @Composable
 fun MathRailsScreen(
     navigation: NavHostController,
-    paddingValues: PaddingValues,
     mathQuizViewModel: MathQuizViewModel
 ) {
     val levels by mathQuizViewModel.levels.collectAsState()
@@ -48,12 +50,14 @@ fun MathRailsScreen(
 
     Column(
         modifier = Modifier
+            .padding(top = 50.dp)
             .padding(16.dp)
             .fillMaxSize()
     ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
+
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -96,7 +100,8 @@ fun LevelCard(
     Card(
         modifier = Modifier
             .fillMaxWidth(1f),
-        onClick = onClick
+        onClick = onClick,
+        colors = CardDefaults.cardColors(Color(0xFFC1C1C1))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
