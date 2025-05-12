@@ -60,7 +60,7 @@ fun ReginScreen(
                 )
                 CustomButton(
                     onClick = {
-                        navigation.navigate(Screens.Main.route)
+                        navigation.navigate(Screens.Login.route)
                     },
                     "Зарегистрироваться",
                     modifier = Modifier.fillMaxWidth(1f)

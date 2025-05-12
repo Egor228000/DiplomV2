@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -29,7 +28,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,6 +38,7 @@ import com.example.diplomv2.navigation.NavHostControll
 import com.example.diplomv2.screens.AppDatabase
 import com.example.diplomv2.tasks.ShapeRepository
 import com.example.diplomv2.view.AiBotViewModel
+import com.example.diplomv2.view.DataStoreViewModel
 import com.example.diplomv2.view.ExpressQuizViewModel
 import com.example.diplomv2.view.ExpressQuizViewModelFactory
 import com.example.diplomv2.view.MathQuizViewModel
@@ -49,18 +48,24 @@ import com.example.diplomv2.view.ShapeGameViewModelFactory
 
 class MainActivity : ComponentActivity() {
     val aiBotViewModel = AiBotViewModel()
+    val dataStoreViewModel = DataStoreViewModel()
 
     @OptIn(ExperimentalMaterial3Api::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(Color(0x00FFFFFF).toArgb(), Color(0x00FFFFFF).toArgb()),
-            navigationBarStyle = SystemBarStyle.dark(Color(0xF2FF3535).toArgb())
+            navigationBarStyle = SystemBarStyle.dark(Color(0xFFC1C1C1).toArgb())
         )
+
         super.onCreate(savedInstanceState)
+
 
 
         installSplashScreen()
         setContent {
+
             val context = LocalContext.current.applicationContext as Application
             val db = AppDatabase.getInstance(context)
             val shapeRepository = ShapeRepository(db.shapeStatDao())
@@ -191,7 +196,8 @@ class MainActivity : ComponentActivity() {
                     mathViewModel,
                     expressViewModel,
                     shapeViewModel,
-                    aiBotViewModel
+                    aiBotViewModel,
+                    dataStoreViewModel
                 )
             }
         }

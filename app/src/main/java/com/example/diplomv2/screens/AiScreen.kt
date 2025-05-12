@@ -66,12 +66,12 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
 
 
     Column(modifier = Modifier
+        .padding(top = 60.dp)
         .fillMaxSize()
     ){
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
-
                 .fillMaxWidth(),
             state = listState,
         ) {
@@ -86,7 +86,7 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
                 ) {
                     Card(
                         colors = CardDefaults.cardColors(
-                            containerColor = if (isUser) Color(0xFFD1E8FF) else Color(0xFFF0F0F0)
+                            containerColor = if (isUser) Color(0xF2FF3535) else Color(0xFFFFF3F3)
                         ),
                         modifier = Modifier
                             .widthIn(max = 300.dp)
@@ -99,9 +99,9 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
                         ) {
 
                             Markdown(
-                                content = msg.message,
+                                content =  msg.message,
                                 colors = DefaultMarkdownColors(
-                                    text = Color(0xFF212121),
+                                    text =  Color(0xFFFFFFFF),
                                     codeText = Color(0xFFd32f2f),
                                     inlineCodeText = Color(0xFF388E3C),
                                     linkText = Color(0xFF1976D2),
@@ -115,34 +115,34 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
                                     h1 = TextStyle(
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 30.sp,
-                                        color = Color(0xFF212121)
+                                        color =  Color(0xFFFFFFFF)
                                     ),
                                     h2 = TextStyle(
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 26.sp,
-                                        color = Color(0xFF212121)
+                                        color =  Color(0xFFFFFFFF)
                                     ),
                                     h3 = TextStyle(
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 22.sp,
-                                        color = Color(0xFF212121)
+                                        color =  Color(0xFFFFFFFF)
                                     ),
                                     h4 = TextStyle(
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 18.sp,
-                                        color = Color(0xFF212121)
+                                        color = Color(0xFFFFFFFF)
                                     ),
                                     h5 = TextStyle(
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 16.sp,
-                                        color = Color(0xFF212121)
+                                        color = Color(0xFFFFFFFF)
                                     ),
                                     h6 = TextStyle(
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 14.sp,
-                                        color = Color(0xFF212121)
+                                        color = Color(0xFFFFFFFF)
                                     ),
-                                    text = TextStyle(fontSize = 16.sp, color = Color(0xFF212121)),
+                                    text = TextStyle(fontSize = 16.sp, color =  Color(0xFFFFFFFF)),
                                     code = TextStyle(fontSize = 14.sp, color = Color(0xFF388E3C)),
                                     inlineCode = TextStyle(
                                         fontSize = 14.sp,
@@ -154,8 +154,8 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
                                         color = Color(0xFF616161)
                                     ),
                                     paragraph = TextStyle(
-                                        fontSize = 16.sp,
-                                        color = Color(0xFF212121)
+                                        fontSize = 18.sp,
+                                        color = if (isUser) Color(0xFFFFFFFF) else Color(0xF3000000)
                                     ),
                                     ordered = TextStyle(
                                         fontSize = 16.sp,
@@ -203,12 +203,13 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
 
                 ) {
                     if (isLoading) CircularProgressIndicator(Modifier.size(24.dp))
-                    else Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Send")
+                    else Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Send", tint = Color(0xF2FF3535))
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Send
             ),
+            textStyle = TextStyle(fontSize = 17.sp),
             keyboardActions = KeyboardActions(
                 onSend = {
                     if (inputText.isNotBlank()) {

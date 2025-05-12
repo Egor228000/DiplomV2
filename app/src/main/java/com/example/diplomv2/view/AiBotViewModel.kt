@@ -1,6 +1,12 @@
 package com.example.diplomv2.view
 
+import android.content.Context
 import android.util.Log.e
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.ktor.client.HttpClient
@@ -16,13 +22,16 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
 data class ChatBubble(val role: String, var message: String)
+
 @Serializable
 data class ChatMessage(val role: String, val content: String)
 
@@ -49,6 +58,7 @@ data class Message(
     val role: String,
     val content: String
 )
+
 class AiBotViewModel : ViewModel() {
 
     private val _listMessages = MutableStateFlow<List<ChatBubble>>(emptyList())
@@ -102,9 +112,9 @@ class AiBotViewModel : ViewModel() {
                     contentType(ContentType.Application.Json)
                     setBody(
                         ChatRequest(
-                            model = "gemma-3-1b-it-qat",
+                            model = "gemma-3-4b-it-qat",
                             messages = listOf(ChatMessage("user", text)),
-                            temperature = 0.7,
+                            temperature = 0.1,
                             max_tokens = 300
                         )
                     )
@@ -121,4 +131,6 @@ class AiBotViewModel : ViewModel() {
             client.close() // Обязательно закрываем клиент
         }
     }
+
+
 }
