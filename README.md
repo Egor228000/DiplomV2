@@ -60,11 +60,14 @@
 ## 📱 Скриншоты
 
 <div align="center">
-  <img src="Main.png" width="250" alt="Превью 2" />
-  <img src="1.png" width="250" alt="Превью 1" />
-  <img src="bot.png" width="250" alt="Превью 3" />
-  <img src="express.png" width="250" alt="Превью 4" />
-  <img src="shape.png" width="250" alt="Превью 5" />
+  <img src="ScreensImage/MainScreen.png" width="200" alt="Превью 2" />
+  <img src="ScreensImage/MathRails.png" width="200" alt="Превью 1" />
+  <img src="ScreensImage/MathRailsGame.png" width="200" alt="Превью 3" />
+  <img src="ScreensImage/Express.png" width="200" alt="Превью 4" />
+  <img src="ScreensImage/ShapeScreen.png" width="200" alt="Превью 5" />
+  <img src="ScreensImage/LearningScreen.png" width="200" alt="Превью 5" />
+  <img src="ScreensImage/ChatBot_1.png" width="200" alt="Превью 5" />
+  <img src="ScreensImage/ChatBot_2.png" width="200" alt="Превью 5" />
 </div>
 
 ---
