@@ -21,21 +21,16 @@ import androidx.navigation.NavHostController
 import com.example.diplomv2.data.Screens
 import com.example.diplomv2.ui.theme.CustomButton
 import com.example.diplomv2.ui.theme.CustomOutlinedTextField
-import com.example.diplomv2.view.DataStoreViewModel
 import kotlinx.coroutines.launch
-
 
 
 @Composable
 fun LoginScreen(
     navigation: NavHostController,
-    dataStoreViewModel: DataStoreViewModel,
 ) {
     var login by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val context = LocalContext.current
 
-   val scope = rememberCoroutineScope()
 
     LazyColumn(
         verticalArrangement = Arrangement.Center,
@@ -64,11 +59,7 @@ fun LoginScreen(
                 )
                 CustomButton(
                     onClick = {
-                        scope.launch {
-                            dataStoreViewModel.writeExampleCounterTrue(context, true)
-                            navigation.navigate(Screens.Main.route)
-
-                        }
+                        navigation.navigate(Screens.Main.route)
                     },
                     "Войти",
                     modifier = Modifier.fillMaxWidth(1f)

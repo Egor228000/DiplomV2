@@ -38,7 +38,6 @@ import com.example.diplomv2.tutorial.LearnMultiplicationScreen
 import com.example.diplomv2.tutorial.LearnShapesScreen
 import com.example.diplomv2.tutorial.LearnSubtractionScreen
 import com.example.diplomv2.view.AiBotViewModel
-import com.example.diplomv2.view.DataStoreViewModel
 import com.example.diplomv2.view.ExpressQuizViewModel
 import com.example.diplomv2.view.MathQuizViewModel
 import com.example.diplomv2.view.ShapeGameViewModel
@@ -52,129 +51,118 @@ fun NavHostControll(
     expressQuizViewModel: ExpressQuizViewModel,
     shapeGameViewModel: ShapeGameViewModel,
     aiBotViewModel: AiBotViewModel,
-    dataStoreViewModel: DataStoreViewModel
 ) {
-    val context = LocalContext.current
-    val exampleCounterFlow = dataStoreViewModel.readExampleCounter(context)
-    val exampleCounter by exampleCounterFlow.collectAsState(initial = null)
 
-    if (exampleCounter == null) {
-        // Пока значение загружается, можно показать  лоадер
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
+
+    NavHost(
+        navController = navigation,
+        startDestination = Screens.Welcome.route,
+
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { 1000 },
+                animationSpec = tween(400)
+            ) + fadeIn()
+        },
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { 1000 },
+                animationSpec = tween(400)
+            ) + fadeOut()
         }
-    } else {
-        NavHost(
-            navController = navigation,
-            startDestination = if (exampleCounter == true) Screens.Main.route else Screens.Welcome.route,
-
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { 1000 },
-                    animationSpec = tween(400)
-                ) + fadeIn()
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { 1000 },
-                    animationSpec = tween(400)
-                ) + fadeOut()
-            }
-        ) {
-            composable(Screens.Welcome.route) {
-                WelcomScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.Regin.route) {
-                ReginScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.Login.route) {
-                LoginScreen(
-                    navigation,
-                    dataStoreViewModel
-                )
-            }
-            composable(Screens.Main.route) {
-                MainScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.Achievement.route) {
-                AchievementScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.Settings.route) {
-                SettingsScreen(
-                    navigation,
-                )
-            }
+    ) {
+        composable(Screens.Welcome.route) {
+            WelcomScreen(
+                navigation,
+            )
+        }
+        composable(Screens.Regin.route) {
+            ReginScreen(
+                navigation,
+            )
+        }
+        composable(Screens.Login.route) {
+            LoginScreen(
+                navigation,
+            )
+        }
+        composable(Screens.Main.route) {
+            MainScreen(
+                navigation,
+            )
+        }
+        composable(Screens.Achievement.route) {
+            AchievementScreen(
+                navigation,
+            )
+        }
+        composable(Screens.Settings.route) {
+            SettingsScreen(
+                navigation,
+            )
+        }
 
 
-            composable(Screens.MathRails.route) {
-                MathRailsScreen(
-                    navigation, mathQuizViewModel
-                )
-            }
-            composable(Screens.ExpressChallenge.route) {
-                ExpressChallengeScreen(
-                    navigation, expressQuizViewModel
-                )
-            }
-            composable(Screens.GeometryStation.route) {
-                GeometryStationScreen(
-                    navigation, shapeGameViewModel
-                )
-            }
-            composable(Screens.Game.route) {
-                GameScreen(
-                    mathQuizViewModel, onBack = { navigation.popBackStack() })
-            }
-            composable(Screens.Statistics.route) {
-                StatisticsScreen(
-                    mathQuizViewModel,
-                    expressQuizViewModel,
-                    shapeGameViewModel
-                )
-            }
-            composable(Screens.Learning.route) {
-                LearningScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.LearnAddition.route) {
-                LearnAdditionScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.LearnSubtraction.route) {
-                LearnSubtractionScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.LearnMultiplication.route) {
-                LearnMultiplicationScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.LearnDivision.route) {
-                LearnDivisionScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.LearnShapes.route) {
-                LearnShapesScreen(
-                    navigation,
-                )
-            }
-            composable(Screens.Ai.route) {
-                AiScreen(
-                    navigation, aiBotViewModel
-                )
-            }
+        composable(Screens.MathRails.route) {
+            MathRailsScreen(
+                navigation, mathQuizViewModel
+            )
+        }
+        composable(Screens.ExpressChallenge.route) {
+            ExpressChallengeScreen(
+                navigation, expressQuizViewModel
+            )
+        }
+        composable(Screens.GeometryStation.route) {
+            GeometryStationScreen(
+                navigation, shapeGameViewModel
+            )
+        }
+        composable(Screens.Game.route) {
+            GameScreen(
+                mathQuizViewModel, onBack = { navigation.popBackStack() })
+        }
+        composable(Screens.Statistics.route) {
+            StatisticsScreen(
+                mathQuizViewModel,
+                expressQuizViewModel,
+                shapeGameViewModel
+            )
+        }
+        composable(Screens.Learning.route) {
+            LearningScreen(
+                navigation,
+            )
+        }
+        composable(Screens.LearnAddition.route) {
+            LearnAdditionScreen(
+                navigation,
+            )
+        }
+        composable(Screens.LearnSubtraction.route) {
+            LearnSubtractionScreen(
+                navigation,
+            )
+        }
+        composable(Screens.LearnMultiplication.route) {
+            LearnMultiplicationScreen(
+                navigation,
+            )
+        }
+        composable(Screens.LearnDivision.route) {
+            LearnDivisionScreen(
+                navigation,
+            )
+        }
+        composable(Screens.LearnShapes.route) {
+            LearnShapesScreen(
+                navigation,
+            )
+        }
+        composable(Screens.Ai.route) {
+            AiScreen(
+                navigation, aiBotViewModel
+            )
         }
     }
 }

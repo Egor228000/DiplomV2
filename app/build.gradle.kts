@@ -47,7 +47,6 @@ android {
 }
 
 dependencies {
-    implementation (libs.androidx.datastore.preferences)
     implementation(libs.multiplatform.markdown.renderer)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.core)

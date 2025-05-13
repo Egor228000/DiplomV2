@@ -46,7 +46,6 @@ import com.example.diplomv2.navigation.NavHostControll
 import com.example.diplomv2.screens.AppDatabase
 import com.example.diplomv2.tasks.ShapeRepository
 import com.example.diplomv2.view.AiBotViewModel
-import com.example.diplomv2.view.DataStoreViewModel
 import com.example.diplomv2.view.ExpressQuizViewModel
 import com.example.diplomv2.view.ExpressQuizViewModelFactory
 import com.example.diplomv2.view.MathQuizViewModel
@@ -56,12 +55,8 @@ import com.example.diplomv2.view.ShapeGameViewModelFactory
 
 class MainActivity : ComponentActivity() {
     val aiBotViewModel = AiBotViewModel()
-    val dataStoreViewModel = DataStoreViewModel()
-
     @OptIn(ExperimentalMaterial3Api::class)
-
     override fun onCreate(savedInstanceState: Bundle?) {
-
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(
                 Color(0x00FFFFFF).toArgb(),
@@ -69,14 +64,9 @@ class MainActivity : ComponentActivity() {
             ),
             navigationBarStyle = SystemBarStyle.dark(Color(0xFFC1C1C1).toArgb())
         )
-
         super.onCreate(savedInstanceState)
-
-
-
         installSplashScreen()
         setContent {
-
             val context = LocalContext.current.applicationContext as Application
             val db = AppDatabase.getInstance(context)
             val shapeRepository = ShapeRepository(db.shapeStatDao())
@@ -211,7 +201,6 @@ class MainActivity : ComponentActivity() {
                     expressViewModel,
                     shapeViewModel,
                     aiBotViewModel,
-                    dataStoreViewModel
                 )
             }
         }
