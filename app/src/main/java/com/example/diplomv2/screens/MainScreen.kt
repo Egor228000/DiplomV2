@@ -149,8 +149,8 @@ fun CardTask(name: String, description: String, onClick: () -> Unit, icon: Int) 
 @Composable
 fun IconBackgroundGrid(icon: Int) {
     val iconPainter = painterResource(id = icon)
-    val rows = 16
-    val cols = 16
+    val rows = 20
+    val cols = 20
 
     Column {
         repeat(rows) {

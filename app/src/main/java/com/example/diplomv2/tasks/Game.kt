@@ -36,7 +36,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -44,9 +43,11 @@ import androidx.compose.ui.unit.sp
 import com.example.diplomv2.view.MathQuizViewModel
 
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.DialogProperties
 import com.example.diplomv2.ui.theme.CustomButton
@@ -119,7 +120,6 @@ fun GameScreen(
         .padding(top = 50.dp)
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
 
                 .verticalScroll(rememberScrollState())
@@ -150,43 +150,56 @@ fun GameScreen(
                 )
             }
 
-            Box(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
                     .background(Color.White)
                     .padding(16.dp),
-                contentAlignment = Alignment.Center
             ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Text(
+                        text = currentProblem.question + " = ?",
+                        fontSize = 36.sp,
+                        color = Color.Black
+                    )
+            }
 
-                Text(
-                    text = currentProblem.question + " = ?",
-                    fontSize = 36.sp,
-                    color = Color.Black
-                )
+
             }
         }
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
         ) {
-            items(currentProblem.options) { option ->
 
-                AnswerButton(
-                    number = option,
-                    isSelected = selectedOption == option,
-                    isCorrect = if (selectedOption == option) answerResult else null,
-                    onClick = {
-                        if (answerResult == null) {
-                            mathQuizViewModel.checkAnswer(option)
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(currentProblem.options) { option ->
+
+                    AnswerButton(
+                        number = option,
+                        isSelected = selectedOption == option,
+                        isCorrect = if (selectedOption == option) answerResult else null,
+                        onClick = {
+                            if (answerResult == null) {
+                                mathQuizViewModel.checkAnswer(option)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
 
@@ -203,10 +216,10 @@ fun AnswerButton(
     onClick: () -> Unit
 ) {
     val backgroundColor = when {
-        isCorrect == null -> Color(0xFFE5E4E4)
+        isCorrect == null -> Color(0xFFC1C1C1)
         isCorrect && isSelected -> Color(0xFF388E3C)
         !isCorrect && isSelected -> Color(0xFFD32F2F)
-        else -> Color(0xFFE5E4E4)
+        else -> Color(0xFFC1C1C1)
     }
 
     Button(
@@ -217,7 +230,7 @@ fun AnswerButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = backgroundColor
         ),
-        border = BorderStroke(1.5.dp, Color.Red)
+        border = BorderStroke(1.5.dp, Color(0xF2FF3535))
     ) {
         Text(text = number.toString(), fontSize = 24.sp, color = Color.Black)
     }

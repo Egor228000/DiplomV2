@@ -57,6 +57,7 @@ fun MathRailsScreen(
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
+            colors = CardDefaults.cardColors(Color(0xFFF3F3F3)),
 
         ) {
             Column(modifier = Modifier.padding(16.dp)) {

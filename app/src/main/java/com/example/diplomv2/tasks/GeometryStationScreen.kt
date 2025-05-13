@@ -56,24 +56,25 @@ fun GeometryStationScreen(
         }
     }
 
-    Column(modifier = Modifier
-        .padding(top = 50.dp)
-        .padding(16.dp)
-        .fillMaxSize(),
+    Column(
+        modifier = Modifier
+            .padding(top = 50.dp)
+            .padding(16.dp)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
         if (!gameEnded) {
             Text("⏳ Осталось времени: $timeLeft сек", fontSize = 18.sp)
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(64.dp))
 
             val shapeWithSize = getShapeWithSize(currentProblem.correctShape)
             Box(
                 modifier = Modifier
                     .size(
-                        width = 100.dp * shapeWithSize.widthRatio,
-                        height = 100.dp * shapeWithSize.heightRatio
+                        width = 150.dp * shapeWithSize.widthRatio,
+                        height = 150.dp * shapeWithSize.heightRatio
                     )
                     .background(
                         color = currentProblem.color,
@@ -81,19 +82,25 @@ fun GeometryStationScreen(
                     )
             )
 
-            Spacer(Modifier.height(16.dp))
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
+            ) {
 
-            currentProblem.options.forEach { option ->
-                CustomButton(
-                    onClick = {
-                        totalCount++
-                        if (option == currentProblem.correctShape) correctCount++
-                        currentProblem = generateShapeProblem()
-                    },
-                    option,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
+                currentProblem.options.forEach { option ->
+                    Spacer(modifier = Modifier.padding(top = 16.dp))
+                    CustomButton(
+                        onClick = {
+                            totalCount++
+                            if (option == currentProblem.correctShape) correctCount++
+                            currentProblem = generateShapeProblem()
+                        },
+                        option,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
             }
         } else {
             Column(
@@ -193,7 +200,11 @@ fun getShapeWithSize(name: String): ShapeWithSize {
 }
 
 class TriangleShape : Shape {
-    override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
         val path = Path().apply {
             moveTo(size.width / 2f, 0f)
             lineTo(size.width, size.height)
@@ -205,7 +216,11 @@ class TriangleShape : Shape {
 }
 
 class DiamondShape : Shape {
-    override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
         val path = Path().apply {
             moveTo(size.width / 2f, 0f)
             lineTo(size.width, size.height / 2f)

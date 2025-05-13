@@ -1,17 +1,22 @@
 package com.example.diplomv2
 
+import android.R.attr.fontFamily
 import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -19,8 +24,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -55,7 +63,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.auto(Color(0x00FFFFFF).toArgb(), Color(0x00FFFFFF).toArgb()),
+            statusBarStyle = SystemBarStyle.auto(
+                Color(0x00FFFFFF).toArgb(),
+                Color(0x00FFFFFF).toArgb()
+            ),
             navigationBarStyle = SystemBarStyle.dark(Color(0xFFC1C1C1).toArgb())
         )
 
@@ -86,24 +97,24 @@ class MainActivity : ComponentActivity() {
 
             Scaffold(
                 modifier = Modifier
-
                     .navigationBarsPadding()
-
                     .statusBarsPadding()
-
-                    .imePadding()
-
-
-                ,
+                    .imePadding(),
+                containerColor = Color.White,
                 topBar = {
                     TopAppBar(
+                        colors = TopAppBarDefaults.topAppBarColors(Color.White),
                         navigationIcon = {
 
-                            when(currentRoute) {
+                            when (currentRoute) {
                                 Screens.Main.route -> {
 
                                 }
+
                                 Screens.Welcome.route -> {
+
+                                }
+                                "Загрузка..." -> {
 
                                 }
                                 else -> {
@@ -137,9 +148,12 @@ class MainActivity : ComponentActivity() {
                                     Screens.Achievement.route -> "Достижение и награды"
                                     Screens.Statistics.route -> "Статистика"
                                     Screens.Ai.route -> "Бот математики"
+                                    Screens.Settings.route -> "Настройки"
 
                                     else -> {
-                                        "Настройки"
+
+                                        "Загрузка..."
+
                                     }
                                 },
                                 fontFamily = FontFamily(Font(R.raw.kids)),
@@ -149,7 +163,7 @@ class MainActivity : ComponentActivity() {
                         },
 
                         actions = {
-                            when(currentRoute) {
+                            when (currentRoute) {
                                 Screens.Main.route -> {
                                     IconButton(
                                         onClick = {
@@ -159,18 +173,18 @@ class MainActivity : ComponentActivity() {
                                         Icon(Icons.Filled.Settings, null)
                                     }
                                 }
+
                                 else -> {}
                             }
 
                         },
 
 
-
-                    )
+                        )
                 },
 
                 floatingActionButton = {
-                    when(currentRoute) {
+                    when (currentRoute) {
                         Screens.Main.route -> {
                             FloatingActionButton(
                                 onClick = {
@@ -179,7 +193,7 @@ class MainActivity : ComponentActivity() {
                                 containerColor = Color(0xF2FF3535)
                             ) {
                                 Icon(
-                                   painter = painterResource(R.drawable.outline_chat_24),
+                                    painter = painterResource(R.drawable.outline_chat_24),
                                     null,
                                     tint = Color.White
                                 )

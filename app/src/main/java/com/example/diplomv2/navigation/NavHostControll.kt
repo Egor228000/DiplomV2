@@ -59,16 +59,14 @@ fun NavHostControll(
     val exampleCounter by exampleCounterFlow.collectAsState(initial = null)
 
     if (exampleCounter == null) {
-        // Пока значение загружается, можно показать пустой экран или лоадер
+        // Пока значение загружается, можно показать  лоадер
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
     } else {
-        val startDestination =
-            if (exampleCounter == true) Screens.Main.route else Screens.Welcome.route
         NavHost(
             navController = navigation,
-            startDestination = startDestination,
+            startDestination = if (exampleCounter == true) Screens.Main.route else Screens.Welcome.route,
 
             enterTransition = {
                 slideInHorizontally(

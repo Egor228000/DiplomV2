@@ -1,12 +1,15 @@
 package com.example.diplomv2.tutorial
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -27,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.diplomv2.R
 import com.example.diplomv2.data.Screens
+import com.example.diplomv2.screens.IconBackgroundGrid
 
 @Composable
 fun LearningScreen(
@@ -43,7 +47,7 @@ fun LearningScreen(
         item {
             Text(
                 "Обучающие материалы",
-                fontSize = 28.sp,
+                fontSize = 35.sp,
                 fontFamily = FontFamily(Font(R.raw.kids_2)),
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth(),
@@ -55,7 +59,8 @@ fun LearningScreen(
             LearnCard(
                 name = "Сложение",
                 description = "Узнай, как складывать числа и тренируйся на примерах!",
-                onClick = { navigation.navigate(Screens.LearnAddition.route)}
+                onClick = { navigation.navigate(Screens.LearnAddition.route)},
+                R.drawable.plus_nik6awtpmie0
             )
         }
 
@@ -63,7 +68,8 @@ fun LearningScreen(
             LearnCard(
                 name = "Вычитание",
                 description = "Научись вычитать — это как брать сладости, но по науке!",
-                onClick = { navigation.navigate(Screens.LearnSubtraction.route)}
+                onClick = { navigation.navigate(Screens.LearnSubtraction.route)},
+                R.drawable.minus_jsgzpcm2zgwc
             )
         }
 
@@ -71,7 +77,8 @@ fun LearningScreen(
             LearnCard(
                 name = "Умножение",
                 description = "Секреты таблицы умножения и крутые лайфхаки.",
-                onClick = { navigation.navigate(Screens.LearnMultiplication.route) }
+                onClick = { navigation.navigate(Screens.LearnMultiplication.route) },
+                R.drawable.multiplication_p9knktc4o2ar
             )
         }
 
@@ -79,7 +86,8 @@ fun LearningScreen(
             LearnCard(
                 name = "Деление",
                 description = "Как честно делить конфеты между друзьями? Узнай здесь!",
-                onClick = { navigation.navigate(Screens.LearnDivision.route) }
+                onClick = { navigation.navigate(Screens.LearnDivision.route) },
+                R.drawable.division_1e5xz80w5e3x
             )
         }
 
@@ -87,7 +95,8 @@ fun LearningScreen(
             LearnCard(
                 name = "Фигуры и формы",
                 description = "Круги, квадраты, треугольники — учим и различаем.",
-                onClick = { navigation.navigate(Screens.LearnShapes.route)}
+                onClick = { navigation.navigate(Screens.LearnShapes.route)},
+                R.drawable.geometry_3wedqpqf6cj4
             )
         }
     }
@@ -95,19 +104,26 @@ fun LearningScreen(
 
 
 @Composable
-fun LearnCard(name: String, description: String, onClick: () -> Unit) {
-    Card(
+fun LearnCard(name: String, description: String, onClick: () -> Unit, icon: Int) {
+    Box(
         modifier = Modifier
-
-            .fillMaxWidth(1f)
+            .fillMaxWidth()
+            .height(110.dp)
             .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick)
-        ,
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFC1C1C1))
+            .background(Color(0xFFC1C1C1)) // Фон карточки
     ) {
-        Column(Modifier.padding(16.dp)) {
-            Text(name, fontSize = 30.sp, color = Color.Black, fontFamily = FontFamily(Font(R.raw.kids_2)))
-            Spacer(modifier = Modifier.padding(6.dp))
+        // Слой с повторяющимися иконками на фоне
+        IconBackgroundGrid(icon = icon)
+        // Содержимое карточки поверх фона
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                name,
+                fontSize = 35.sp,
+                color = Color.Black,
+                fontFamily = FontFamily(Font(R.raw.kids_2))
+            )
+            Spacer(modifier = Modifier.height(6.dp))
             Text(description, fontSize = 15.sp, color = Color.Black)
         }
     }
