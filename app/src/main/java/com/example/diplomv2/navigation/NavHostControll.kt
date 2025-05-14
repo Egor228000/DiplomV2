@@ -48,7 +48,7 @@ fun NavHostControll(
 
     NavHost(
         navController = navigation,
-        startDestination = Screens.Ai.route,
+        startDestination = Screens.Welcome.route,
 
         enterTransition = {
             slideInHorizontally(
