@@ -32,7 +32,6 @@ data class ChatRequest(
     val temperature: Double,
     val max_tokens: Int
 )
-
 @Serializable
 data class ChatResponse(
     val choices: List<Choice>

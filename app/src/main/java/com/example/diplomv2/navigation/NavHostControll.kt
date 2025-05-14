@@ -5,38 +5,30 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.diplomv2.data.Screens
 import com.example.diplomv2.screens.AchievementScreen
 import com.example.diplomv2.screens.AiScreen
-import com.example.diplomv2.tasks.ExpressChallengeScreen
-import com.example.diplomv2.tasks.GameScreen
-import com.example.diplomv2.tasks.GeometryStationScreen
-import com.example.diplomv2.tutorial.LearningScreen
 import com.example.diplomv2.screens.LoginScreen
 import com.example.diplomv2.screens.MainScreen
-import com.example.diplomv2.tasks.MathRailsScreen
 import com.example.diplomv2.screens.ReginScreen
 import com.example.diplomv2.screens.SettingsScreen
 import com.example.diplomv2.screens.StatisticsScreen
 import com.example.diplomv2.screens.WelcomScreen
+import com.example.diplomv2.tasks.ExpressChallengeScreen
+import com.example.diplomv2.tasks.GameScreen
+import com.example.diplomv2.tasks.GeometryStationScreen
+import com.example.diplomv2.tasks.MathRailsScreen
 import com.example.diplomv2.tutorial.LearnAdditionScreen
 import com.example.diplomv2.tutorial.LearnDivisionScreen
 import com.example.diplomv2.tutorial.LearnMultiplicationScreen
 import com.example.diplomv2.tutorial.LearnShapesScreen
 import com.example.diplomv2.tutorial.LearnSubtractionScreen
+import com.example.diplomv2.tutorial.LearningScreen
 import com.example.diplomv2.view.AiBotViewModel
 import com.example.diplomv2.view.ExpressQuizViewModel
 import com.example.diplomv2.view.MathQuizViewModel
@@ -56,7 +48,7 @@ fun NavHostControll(
 
     NavHost(
         navController = navigation,
-        startDestination = Screens.Welcome.route,
+        startDestination = Screens.Ai.route,
 
         enterTransition = {
             slideInHorizontally(
