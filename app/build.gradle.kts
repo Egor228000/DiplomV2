@@ -20,7 +20,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "2.6.0-demo"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -31,6 +30,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
     }
     compileOptions {
