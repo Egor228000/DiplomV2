@@ -1,5 +1,5 @@
 # DiplomV2
-<a href="https://deepwiki.com/Egor228000/DiplomV2"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+
 <h1 align="center">📱 МатеМагия: Обучающее Приложение по Математике</h1> 
 
 <p align="center">
