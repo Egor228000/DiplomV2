@@ -63,8 +63,6 @@
    <img src="ScreensImage/Welcome_1.png" width="200" alt="Превью 2" />
   <img src="ScreensImage/Welcome_2.png" width="200" alt="Превью 1" />
   <img src="ScreensImage/Welcome_3.png" width="200" alt="Превью 3" />
-  <img src="ScreensImage/Registration.png" width="200" alt="Превью 4" />
-  <img src="ScreensImage/Authorization.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/MainScreen.png" width="200" alt="Превью 2" />
   <img src="ScreensImage/MathRails.png" width="200" alt="Превью 1" />
   <img src="ScreensImage/MathRailsGame.png" width="200" alt="Превью 3" />
