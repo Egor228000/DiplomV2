@@ -53,8 +53,7 @@ import kotlinx.coroutines.launch
 fun MainScreen(
     navigation: NavHostController,
 ) {
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
+
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier

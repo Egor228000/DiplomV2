@@ -181,7 +181,7 @@ fun WelcomScreen(
                         }
 
                         CustomButton(
-                            onClick = { navigation.navigate(Screens.Regin.route) },
+                            onClick = { navigation.navigate(Screens.Main.route) },
                             textButton = "Начать учиться",
                             modifier = Modifier
                                 .align(Alignment.BottomCenter)

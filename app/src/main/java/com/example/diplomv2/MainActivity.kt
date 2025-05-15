@@ -55,6 +55,7 @@ import com.example.diplomv2.view.ShapeGameViewModelFactory
 
 class MainActivity : ComponentActivity() {
     val aiBotViewModel = AiBotViewModel()
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
@@ -104,9 +105,11 @@ class MainActivity : ComponentActivity() {
                                 Screens.Welcome.route -> {
 
                                 }
+
                                 "Загрузка..." -> {
 
                                 }
+
                                 else -> {
                                     IconButton(
                                         onClick = {
@@ -122,8 +125,6 @@ class MainActivity : ComponentActivity() {
                             Text(
                                 when (currentRoute) {
                                     Screens.Welcome.route -> "Првиетсвую тебя"
-                                    Screens.Regin.route -> "Регистрация"
-                                    Screens.Login.route -> "Авторизация"
                                     Screens.Main.route -> "Главная"
                                     Screens.MathRails.route -> "Математические рельсы"
                                     Screens.ExpressChallenge.route -> "Скоройстой экспресс"
@@ -168,9 +169,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                         },
-
-
-                        )
+                    )
                 },
 
                 floatingActionButton = {
@@ -190,9 +189,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-
                 }
-
             ) { padding ->
                 NavHostControll(
                     navigation,

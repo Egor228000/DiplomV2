@@ -1,5 +1,7 @@
 package com.example.diplomv2.tasks
 
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -14,6 +16,7 @@ import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -39,6 +42,22 @@ fun GeometryStationScreen(
     navigation: NavHostController,
     shapeGameViewModel: ShapeGameViewModel
 ) {
+    val context =  LocalContext.current
+    var backPressedTime by remember { mutableStateOf(0L) }
+
+    // Обработчик кнопки "Назад"
+    BackHandler {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            navigation.popBackStack() // Выход, если нажато дважды за 2 секунды
+        } else {
+            Toast.makeText(
+                context ,
+                "Нажмите ещё раз для выхода",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
     var currentProblem by remember { mutableStateOf(generateShapeProblem()) }
     var correctCount by remember { mutableStateOf(0) }
     var totalCount by remember { mutableStateOf(0) }

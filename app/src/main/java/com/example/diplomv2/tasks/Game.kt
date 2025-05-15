@@ -1,6 +1,9 @@
 package com.example.diplomv2.tasks
 
+import android.R
 import android.speech.tts.TextToSpeech
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -44,10 +47,12 @@ import com.example.diplomv2.view.MathQuizViewModel
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.DialogProperties
 import com.example.diplomv2.ui.theme.CustomButton
@@ -58,8 +63,22 @@ fun GameScreen(
     mathQuizViewModel: MathQuizViewModel,
     onBack: () -> Unit
 ) {
-
     val context = LocalContext.current
+    var backPressedTime by remember { mutableStateOf(0L) }
+
+    // Обработчик кнопки "Назад"
+    BackHandler {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            onBack()// Выход, если нажато дважды за 2 секунды
+        } else {
+            Toast.makeText(
+                context,
+                "Нажмите ещё раз для выхода",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
     val tts = remember { mutableStateOf<TextToSpeech?>(null) }
 
     LaunchedEffect(Unit) {
@@ -69,8 +88,6 @@ fun GameScreen(
             }
         }
     }
-
-
 
 
     val levels by mathQuizViewModel.levels.collectAsState()
@@ -117,7 +134,7 @@ fun GameScreen(
         modifier = Modifier
             .padding(16.dp)
 
-        .padding(top = 50.dp)
+            .padding(top = 50.dp)
     ) {
         Column(
             modifier = Modifier
@@ -137,7 +154,12 @@ fun GameScreen(
                 CustomButton(
                     onClick = {
                         tts.value?.stop() // Остановить предыдущую речь
-                        tts.value?.speak("Сколько будет ${currentProblem.question}?", TextToSpeech.QUEUE_FLUSH, null, null)
+                        tts.value?.speak(
+                            "Сколько будет ${currentProblem.question}?",
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            null
+                        )
                     },
                     "Задача вслух",
                     modifier = Modifier
@@ -150,33 +172,39 @@ fun GameScreen(
                 )
             }
 
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(120.dp)
-                    .background(Color.White)
-                    .padding(16.dp),
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxSize()
+
+                Card(
+
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .background(Color.White)
+                        .padding(16.dp),
+                    colors = CardDefaults.cardColors(Color(0xFFF3F3F3))
                 ) {
-                    Text(
-                        text = currentProblem.question + " = ?",
-                        fontSize = 36.sp,
-                        color = Color.Black
-                    )
-            }
-
-
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Text(
+                            text = currentProblem.question + " = ?",
+                            fontSize = 36.sp,
+                            color = Color.Black
+                        )
+                    }
+                }
             }
         }
 
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
         ) {
 
             LazyVerticalGrid(

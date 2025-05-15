@@ -1,5 +1,7 @@
 package com.example.diplomv2.tasks
 
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,7 +51,22 @@ fun ExpressChallengeScreen(
     navigation: NavHostController,
     expressQuizViewModel: ExpressQuizViewModel
 ) {
+    val context =  LocalContext.current
+    var backPressedTime by remember { mutableStateOf(0L) }
 
+    // Обработчик кнопки "Назад"
+    BackHandler {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            navigation.popBackStack() // Выход, если нажато дважды за 2 секунды
+        } else {
+            Toast.makeText(
+                context ,
+                "Нажмите ещё раз для выхода",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
     var timeLeft by remember { mutableIntStateOf(60) }
     var currentProblem by remember { mutableStateOf(generateProblem()) }
     var correctCount by remember { mutableIntStateOf(0) }
