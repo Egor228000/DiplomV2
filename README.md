@@ -71,6 +71,9 @@
   <img src="ScreensImage/LearningScreen.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/ChatBot_1.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/ChatBot_2.png" width="200" alt="Превью 5" />
+  <img src="ScreensImage/Achievement.png" width="200" alt="Превью 5" />
+  <img src="ScreensImage/Statictic.png" width="200" alt="Превью 5" />
+  
 </div>
 
 ---
