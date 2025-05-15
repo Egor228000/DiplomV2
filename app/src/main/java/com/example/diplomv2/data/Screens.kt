@@ -2,8 +2,6 @@ package com.example.diplomv2.data
 
 enum class Screens(val route: String) {
     Welcome("welcom"),
-    Login("login"),
-    Regin("regin"),
     Main("main"),
     //Достижение
     Achievement("achievement"),

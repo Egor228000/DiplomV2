@@ -13,9 +13,7 @@ import androidx.navigation.compose.composable
 import com.example.diplomv2.data.Screens
 import com.example.diplomv2.screens.AchievementScreen
 import com.example.diplomv2.screens.AiScreen
-import com.example.diplomv2.screens.LoginScreen
 import com.example.diplomv2.screens.MainScreen
-import com.example.diplomv2.screens.ReginScreen
 import com.example.diplomv2.screens.SettingsScreen
 import com.example.diplomv2.screens.StatisticsScreen
 import com.example.diplomv2.screens.WelcomScreen
@@ -53,13 +51,13 @@ fun NavHostControll(
         enterTransition = {
             slideInHorizontally(
                 initialOffsetX = { 1000 },
-                animationSpec = tween(400)
+                animationSpec = tween(700)
             ) + fadeIn()
         },
         exitTransition = {
             slideOutHorizontally(
                 targetOffsetX = { 1000 },
-                animationSpec = tween(400)
+                animationSpec = tween(700)
             ) + fadeOut()
         }
     ) {
@@ -68,16 +66,7 @@ fun NavHostControll(
                 navigation,
             )
         }
-        composable(Screens.Regin.route) {
-            ReginScreen(
-                navigation,
-            )
-        }
-        composable(Screens.Login.route) {
-            LoginScreen(
-                navigation,
-            )
-        }
+
         composable(Screens.Main.route) {
             MainScreen(
                 navigation,
