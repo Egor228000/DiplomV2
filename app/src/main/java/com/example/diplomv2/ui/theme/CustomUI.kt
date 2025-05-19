@@ -45,18 +45,4 @@ fun CustomText(textText: String, modifier: Modifier, textStyle: TextStyle) {
 }
 
 
-@Composable
-fun CustomOutlinedTextField(
-    valueText: String,
-    onValueChangeText: (String) -> Unit,
-    label: @Composable (() -> Unit)? = null
-) {
-    OutlinedTextField(
-        value = valueText,
-        onValueChange = onValueChangeText,
-        label = label,
-        modifier = Modifier.fillMaxWidth(1f),
-        shape = RoundedCornerShape(10.dp),
-        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color.Red, focusedLabelColor = Color.Black)
-    )
-}
+
