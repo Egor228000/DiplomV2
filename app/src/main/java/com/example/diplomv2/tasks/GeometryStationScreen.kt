@@ -42,38 +42,28 @@ fun GeometryStationScreen(
     navigation: NavHostController,
     shapeGameViewModel: ShapeGameViewModel
 ) {
-    val context =  LocalContext.current
+    val context = LocalContext.current
     var backPressedTime by remember { mutableStateOf(0L) }
 
-    // Обработчик кнопки "Назад"
+    // Обработка выхода
     BackHandler {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            navigation.popBackStack() // Выход, если нажато дважды за 2 секунды
+            navigation.popBackStack()
         } else {
-            Toast.makeText(
-                context ,
-                "Нажмите ещё раз для выхода",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(context, "Нажмите ещё раз для выхода", Toast.LENGTH_SHORT).show()
         }
         backPressedTime = System.currentTimeMillis()
     }
-    var currentProblem by remember { mutableStateOf(generateShapeProblem()) }
-    var correctCount by remember { mutableStateOf(0) }
-    var totalCount by remember { mutableStateOf(0) }
-    var gameEnded by remember { mutableStateOf(false) }
-    var timeLeft by remember { mutableStateOf(60) }
 
     LaunchedEffect(Unit) {
-        while (timeLeft > 0) {
-            delay(1000)
-            timeLeft--
-        }
-        gameEnded = true
-        shapeGameViewModel.viewModelScope.launch {
-            shapeGameViewModel.saveShapeStat(correctCount)
-        }
+        shapeGameViewModel.startTimer()
     }
+
+    val currentProblem = shapeGameViewModel.currentProblem
+    val correctCount = shapeGameViewModel.correctCount
+    val totalCount = shapeGameViewModel.totalCount
+    val timeLeft = shapeGameViewModel.timeLeft
+    val gameEnded = shapeGameViewModel.gameEnded
 
     Column(
         modifier = Modifier
@@ -83,7 +73,6 @@ fun GeometryStationScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-
         if (!gameEnded) {
             Text("⏳ Осталось времени: $timeLeft сек", fontSize = 18.sp)
             Spacer(Modifier.height(64.dp))
@@ -106,18 +95,14 @@ fun GeometryStationScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
             ) {
-
                 currentProblem.options.forEach { option ->
                     Spacer(modifier = Modifier.padding(top = 16.dp))
                     CustomButton(
                         onClick = {
-                            totalCount++
-                            if (option == currentProblem.correctShape) correctCount++
-                            currentProblem = generateShapeProblem()
+                            shapeGameViewModel.selectAnswer(option)
                         },
                         option,
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
@@ -129,53 +114,33 @@ fun GeometryStationScreen(
             ) {
                 Text("🏁 Время вышло!", fontSize = 18.sp)
 
-                if (correctCount == totalCount) {
-                    Text("Молодец. Продролжай в том же духе!")
-                    val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            R.raw.good
-                        )
-                    )
-                    LottieAnimation(
-                        composition,
-                        modifier = Modifier.fillMaxWidth(0.7f),
-                    )
-                } else if (correctCount > 10 || totalCount > 20) {
-                    Text("Молодец. Продролжай в том же духе!")
-                    val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            R.raw.five
-                        )
-                    )
-                    LottieAnimation(
-                        composition,
-                        modifier = Modifier.fillMaxWidth(0.7f),
-                        iterations = LottieConstants.IterateForever
-                    )
-                } else if (correctCount <= 5 || totalCount > 15) {
-                    Text("Ты идешь хорошо, но можешь лучше!")
-                    val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            R.raw.maybe
-                        )
-                    )
-                    LottieAnimation(
-                        composition,
-                        modifier = Modifier.fillMaxWidth(0.7f),
-                        iterations = LottieConstants.IterateForever
-                    )
+                val compositionRes = when {
+                    correctCount == totalCount -> R.raw.good
+                    correctCount > 10 || totalCount > 20 -> R.raw.five
+                    correctCount <= 5 || totalCount > 15 -> R.raw.maybe
+                    else -> R.raw.maybe
                 }
+                val composition by rememberLottieComposition(
+                    LottieCompositionSpec.RawRes(compositionRes)
+                )
+                LottieAnimation(
+                    composition,
+                    modifier = Modifier.fillMaxWidth(0.7f),
+                    iterations = LottieConstants.IterateForever
+                )
+
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Text("Правильных ответов: $correctCount из $totalCount", fontSize = 18.sp)
-                    Spacer(Modifier.height(16.dp))
+
+                    Spacer(Modifier.height(8.dp))
                     CustomButton(
                         onClick = { navigation.popBackStack() },
                         "Назад",
-                        modifier = Modifier.fillMaxWidth(1f)
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }

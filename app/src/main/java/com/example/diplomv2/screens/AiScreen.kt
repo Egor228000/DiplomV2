@@ -79,14 +79,14 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
         .fillMaxSize()
     ){
         LazyColumn(
-            verticalArrangement = if (listMessages.isNullOrEmpty()) Arrangement.Center else Arrangement.Top,
+            verticalArrangement = if (listMessages.isEmpty()) Arrangement.Center else Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth(),
             state = listState,
         ) {
-            if (listMessages.isNullOrEmpty()) {
+            if (listMessages.isEmpty()) {
                 items(1) {
                         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.train))
                         LottieAnimation(
@@ -97,112 +97,131 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
 
 
                 }
-            }
-            items(listMessages) { msg ->
-                val isUser = msg.role == "Вы"
+            } else {
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
-                ) {
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (isUser) Color(0xF2FF3535) else Color(0xFFFFF3F3)
-                        ),
+                items(listMessages) { msg ->
+                    val isUser = msg.role == "Вы"
+
+                    Row(
                         modifier = Modifier
-                            .widthIn(max = 300.dp)
-                            .padding(horizontal = 8.dp),
-                        shape = RoundedCornerShape(16.dp)
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp),
+                        horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
                     ) {
-                        Column(
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isUser) Color(0xF2FF3535) else Color(0xFFFFF3F3)
+                            ),
                             modifier = Modifier
-                                .padding(16.dp)
+                                .widthIn(max = 300.dp)
+                                .padding(horizontal = 8.dp),
+                            shape = RoundedCornerShape(16.dp)
                         ) {
+                            Column(
+                                modifier = Modifier
+                                    .padding(16.dp)
+                            ) {
 
-                            Markdown(
-                                content =  msg.message,
-                                colors = DefaultMarkdownColors(
-                                    text =  Color(0xFFFFFFFF),
-                                    codeText = Color(0xFFd32f2f),
-                                    inlineCodeText = Color(0xFF388E3C),
-                                    linkText = Color(0xFF1976D2),
-                                    codeBackground = Color(0xFFF5F5F5),
-                                    inlineCodeBackground = Color(0xFFE0F2F1),
-                                    dividerColor = Color(0xFFBDBDBD),
-                                    tableText = Color(0xFF212121),
-                                    tableBackground = Color(0xFFF0F0F0)
-                                ),
-                                typography = DefaultMarkdownTypography(
-                                    h1 = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 30.sp,
-                                        color =  Color(0xFFFFFFFF)
+                                Markdown(
+                                    content = msg.message,
+                                    colors = DefaultMarkdownColors(
+                                        text = Color(0xFFFFFFFF),
+                                        codeText = Color(0xFFd32f2f),
+                                        inlineCodeText = Color(0xFF388E3C),
+                                        linkText = Color(0xFF1976D2),
+                                        codeBackground = Color(0xFFF5F5F5),
+                                        inlineCodeBackground = Color(0xFFE0F2F1),
+                                        dividerColor = Color(0xFFBDBDBD),
+                                        tableText = Color(0xFF212121),
+                                        tableBackground = Color(0xFFF0F0F0)
                                     ),
-                                    h2 = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 26.sp,
-                                        color =  Color(0xFFFFFFFF)
-                                    ),
-                                    h3 = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 22.sp,
-                                        color =  Color(0xFFFFFFFF)
-                                    ),
-                                    h4 = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 18.sp,
-                                        color = Color(0xFFFFFFFF)
-                                    ),
-                                    h5 = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 16.sp,
-                                        color = Color(0xFFFFFFFF)
-                                    ),
-                                    h6 = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 14.sp,
-                                        color = Color(0xFFFFFFFF)
-                                    ),
-                                    text = TextStyle(fontSize = 16.sp, color =  Color(0xFFFFFFFF)),
-                                    code = TextStyle(fontSize = 14.sp, color = Color(0xFF388E3C)),
-                                    inlineCode = TextStyle(
-                                        fontSize = 14.sp,
-                                        color = Color(0xFF388E3C)
-                                    ),
-                                    quote = TextStyle(
-                                        fontSize = 16.sp,
-                                        fontStyle = FontStyle.Italic,
-                                        color = Color(0xFF616161)
-                                    ),
-                                    paragraph = TextStyle(
-                                        fontSize = 18.sp,
-                                        color = if (isUser) Color(0xFFFFFFFF) else Color(0xF3000000)
-                                    ),
-                                    ordered = TextStyle(
-                                        fontSize = 16.sp,
-                                        color = Color(0xFF212121)
-                                    ),
-                                    bullet = TextStyle(fontSize = 16.sp, color = Color(0xFF212121)),
-                                    list = TextStyle(fontSize = 16.sp, color = Color(0xFF212121)),
-                                    link = TextStyle(
-                                        fontSize = 16.sp,
-                                        color = Color(0xFF1976D2),
-                                        textDecoration = TextDecoration.Underline
-                                    ),
-                                    textLink = TextLinkStyles(
-                                        style = SpanStyle(
-                                            fontSize = 16.sp,
-                                            color = Color(0xFF1976D2)
+                                    typography = DefaultMarkdownTypography(
+                                        h1 = TextStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 30.sp,
+                                            color = Color(0xFFFFFFFF)
                                         ),
-                                        focusedStyle = SpanStyle(),
-                                        hoveredStyle = SpanStyle(),
-                                        pressedStyle = SpanStyle(),
-                                    ),
-                                    table = TextStyle(fontSize = 14.sp, color = Color(0xFF212121))
+                                        h2 = TextStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 26.sp,
+                                            color = Color(0xFFFFFFFF)
+                                        ),
+                                        h3 = TextStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 22.sp,
+                                            color = Color(0xFFFFFFFF)
+                                        ),
+                                        h4 = TextStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp,
+                                            color = Color(0xFFFFFFFF)
+                                        ),
+                                        h5 = TextStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 16.sp,
+                                            color = Color(0xFFFFFFFF)
+                                        ),
+                                        h6 = TextStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 14.sp,
+                                            color = Color(0xFFFFFFFF)
+                                        ),
+                                        text = TextStyle(
+                                            fontSize = 16.sp,
+                                            color = Color(0xFFFFFFFF)
+                                        ),
+                                        code = TextStyle(
+                                            fontSize = 14.sp,
+                                            color = Color(0xFF388E3C)
+                                        ),
+                                        inlineCode = TextStyle(
+                                            fontSize = 14.sp,
+                                            color = Color(0xFF388E3C)
+                                        ),
+                                        quote = TextStyle(
+                                            fontSize = 16.sp,
+                                            fontStyle = FontStyle.Italic,
+                                            color = Color(0xFF616161)
+                                        ),
+                                        paragraph = TextStyle(
+                                            fontSize = 18.sp,
+                                            color = if (isUser) Color(0xFFFFFFFF) else Color(
+                                                0xF3000000
+                                            )
+                                        ),
+                                        ordered = TextStyle(
+                                            fontSize = 16.sp,
+                                            color = Color(0xFF212121)
+                                        ),
+                                        bullet = TextStyle(
+                                            fontSize = 16.sp,
+                                            color = Color(0xFF212121)
+                                        ),
+                                        list = TextStyle(
+                                            fontSize = 16.sp,
+                                            color = Color(0xFF212121)
+                                        ),
+                                        link = TextStyle(
+                                            fontSize = 16.sp,
+                                            color = Color(0xFF1976D2),
+                                            textDecoration = TextDecoration.Underline
+                                        ),
+                                        textLink = TextLinkStyles(
+                                            style = SpanStyle(
+                                                fontSize = 16.sp,
+                                                color = Color(0xFF1976D2)
+                                            ),
+                                            focusedStyle = SpanStyle(),
+                                            hoveredStyle = SpanStyle(),
+                                            pressedStyle = SpanStyle(),
+                                        ),
+                                        table = TextStyle(
+                                            fontSize = 14.sp,
+                                            color = Color(0xFF212121)
+                                        )
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                 }

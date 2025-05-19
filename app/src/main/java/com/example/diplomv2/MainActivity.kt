@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -36,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -110,6 +112,7 @@ class MainActivity : ComponentActivity() {
 
                                 }
 
+
                                 else -> {
                                     IconButton(
                                         onClick = {
@@ -182,9 +185,10 @@ class MainActivity : ComponentActivity() {
                                 containerColor = Color(0xF2FF3535)
                             ) {
                                 Icon(
-                                    painter = painterResource(R.drawable.outline_chat_24),
+                                    painter = painterResource(R.drawable.bot_q7rhaqsodqit),
                                     null,
-                                    tint = Color.White
+                                    tint = Color.White,
+                                    modifier = Modifier.size(40.dp)
                                 )
                             }
                         }

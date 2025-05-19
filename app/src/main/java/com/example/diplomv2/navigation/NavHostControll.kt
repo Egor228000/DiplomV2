@@ -46,7 +46,7 @@ fun NavHostControll(
 
     NavHost(
         navController = navigation,
-        startDestination = Screens.Welcome.route,
+        startDestination = Screens.Main.route,
 
         enterTransition = {
             slideInHorizontally(
@@ -70,6 +70,8 @@ fun NavHostControll(
         composable(Screens.Main.route) {
             MainScreen(
                 navigation,
+                expressQuizViewModel,
+                shapeGameViewModel
             )
         }
         composable(Screens.Achievement.route) {

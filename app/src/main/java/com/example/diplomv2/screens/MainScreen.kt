@@ -47,11 +47,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.diplomv2.R
 import com.example.diplomv2.data.Screens
+import com.example.diplomv2.view.ExpressQuizViewModel
+import com.example.diplomv2.view.ShapeGameViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(
     navigation: NavHostController,
+    expressQuizViewModel: ExpressQuizViewModel,
+    shapeGameViewModel: ShapeGameViewModel
 ) {
 
     LazyColumn(
@@ -75,7 +79,11 @@ fun MainScreen(
             CardTask(
                 "Скоростной экспресс",
                 "Успей решить максимум примеров, пока не упёрся в станцию! Тик-так, время пошло!",
-                onClick = { navigation.navigate(Screens.ExpressChallenge.route) },
+                onClick = {
+                    expressQuizViewModel.resetGame()
+
+                    navigation.navigate(Screens.ExpressChallenge.route)
+                          },
                 icon = R.drawable.express_qpl6mb6w73hk
             )
         }
@@ -83,7 +91,10 @@ fun MainScreen(
             CardTask(
                 "Геометрическая станция",
                 "Узнавай фигуры и собирай пазлы! Круглые колёса, квадратные окошки.",
-                onClick = { navigation.navigate(Screens.GeometryStation.route) },
+                onClick = {
+                    shapeGameViewModel.resetGame()
+                    navigation.navigate(Screens.GeometryStation.route)
+                          },
                 icon = R.drawable.geometry_3wedqpqf6cj4
             )
         }
@@ -102,15 +113,6 @@ fun MainScreen(
                 textAlign = TextAlign.Center,
                 color = Color.Gray
             )
-           /* Button(
-                onClick = {
-                    scope.launch {
-                        //writeExampleCounterTrue(context, false)
-                    }
-                }
-            ) {
-                Text("Выйти")
-            }*/
 
         }
     }

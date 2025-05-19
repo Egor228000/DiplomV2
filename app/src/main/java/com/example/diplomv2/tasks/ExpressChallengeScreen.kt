@@ -17,7 +17,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -51,38 +53,31 @@ fun ExpressChallengeScreen(
     navigation: NavHostController,
     expressQuizViewModel: ExpressQuizViewModel
 ) {
-    val context =  LocalContext.current
+    val context = LocalContext.current
     var backPressedTime by remember { mutableStateOf(0L) }
 
-    // Обработчик кнопки "Назад"
+    val timeLeft by expressQuizViewModel.timeLeft.collectAsState()
+    val currentProblem by expressQuizViewModel.currentProblem.collectAsState()
+    val correctCount by expressQuizViewModel.correctCount.collectAsState()
+    val totalCount by expressQuizViewModel.totalCount.collectAsState()
+    val gameEnded by expressQuizViewModel.gameEnded.collectAsState()
+
+    LaunchedEffect(Unit) {
+        expressQuizViewModel.startTimer()
+    }
+
     BackHandler {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            navigation.popBackStack() // Выход, если нажато дважды за 2 секунды
+            expressQuizViewModel.resetGame()
+            navigation.popBackStack()
         } else {
             Toast.makeText(
-                context ,
+                context,
                 "Нажмите ещё раз для выхода",
                 Toast.LENGTH_SHORT
             ).show()
         }
         backPressedTime = System.currentTimeMillis()
-    }
-    var timeLeft by remember { mutableIntStateOf(60) }
-    var currentProblem by remember { mutableStateOf(generateProblem()) }
-    var correctCount by remember { mutableIntStateOf(0) }
-    var totalCount by remember { mutableIntStateOf(0) }
-    var gameEnded by remember { mutableStateOf(false) }
-
-    val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(Unit) {
-        while (timeLeft > 0) {
-            delay(1000)
-            timeLeft--
-        }
-        gameEnded = true
-        coroutineScope.launch {
-            expressQuizViewModel.saveExpressStat(correctCount)
-        }
     }
 
     Column(
@@ -92,17 +87,13 @@ fun ExpressChallengeScreen(
             .padding(top = 50.dp)
             .padding(16.dp)
     ) {
-
         if (!gameEnded) {
             Text("⏳ Осталось времени: $timeLeft сек", fontSize = 18.sp)
             Spacer(Modifier.height(16.dp))
 
             Card(
-                modifier = Modifier
-
-                    .fillMaxWidth(1f),
+                modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(Color(0xFFC1C1C1))
-
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -122,6 +113,7 @@ fun ExpressChallengeScreen(
                     )
                 }
             }
+
             Column(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxSize()
@@ -129,9 +121,7 @@ fun ExpressChallengeScreen(
                 currentProblem.options.forEach { option ->
                     CustomButton(
                         onClick = {
-                            totalCount++
-                            if (option == currentProblem.correctAnswer) correctCount++
-                            currentProblem = generateProblem()
+                            expressQuizViewModel.answerSelected(option)
                         },
                         "$option",
                         modifier = Modifier
@@ -140,7 +130,6 @@ fun ExpressChallengeScreen(
                     )
                 }
             }
-
         } else {
             Column(
                 verticalArrangement = Arrangement.Top,
@@ -149,45 +138,37 @@ fun ExpressChallengeScreen(
             ) {
                 Text("🏁 Время вышло!", fontSize = 18.sp)
 
-
                 if (correctCount == totalCount) {
                     Text("Молодец. Продролжай в том же духе!")
                     val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            R.raw.good
-                        )
+                        LottieCompositionSpec.RawRes(R.raw.good)
                     )
                     LottieAnimation(
                         composition,
-                        modifier = Modifier.fillMaxWidth(0.7f),
+                        modifier = Modifier.fillMaxWidth(0.7f)
                     )
                 } else if (correctCount > 10 || totalCount > 20) {
                     Text("Молодец. Продролжай в том же духе!")
                     val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            R.raw.five
-                        )
+                        LottieCompositionSpec.RawRes(R.raw.five)
                     )
                     LottieAnimation(
                         composition,
                         modifier = Modifier.fillMaxWidth(0.7f),
                         iterations = LottieConstants.IterateForever
-
                     )
                 } else if (correctCount <= 5 || totalCount > 15) {
                     Text("Ты идешь хорошо, но можешь лучше!")
                     val composition by rememberLottieComposition(
-                        LottieCompositionSpec.RawRes(
-                            R.raw.maybe
-                        )
+                        LottieCompositionSpec.RawRes(R.raw.maybe)
                     )
                     LottieAnimation(
                         composition,
                         modifier = Modifier.fillMaxWidth(0.7f),
                         iterations = LottieConstants.IterateForever
-
                     )
                 }
+
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -196,17 +177,19 @@ fun ExpressChallengeScreen(
                     Text("Правильных ответов: $correctCount из $totalCount", fontSize = 18.sp)
                     Spacer(Modifier.height(16.dp))
                     CustomButton(
-                        onClick = { navigation.popBackStack() },
+                        onClick = {
+                            expressQuizViewModel.resetGame()
+                            navigation.popBackStack()
+                                  },
                         "Назад",
-                        modifier = Modifier.fillMaxWidth(1f)
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
-
             }
-
         }
     }
 }
+
 
 fun generateProblem(): MathProblem {
     val operations = listOf("+", "-", "*", "/")
