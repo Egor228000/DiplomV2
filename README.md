@@ -65,13 +65,13 @@
    <img src="ScreensImage/Welcome_1.png" width="200" alt="Превью 2" />
   <img src="ScreensImage/Welcome_2.png" width="200" alt="Превью 1" />
   <img src="ScreensImage/Welcome_3.png" width="200" alt="Превью 3" />
-  <img src="ScreensImage/MainScreen.png" width="200" alt="Превью 2" />
+  <img src="ScreensImage/ScreenMain.png" width="200" alt="Превью 2" />
   <img src="ScreensImage/MathRails.png" width="200" alt="Превью 1" />
   <img src="ScreensImage/MathRailsGame.png" width="200" alt="Превью 3" />
   <img src="ScreensImage/Express.png" width="200" alt="Превью 4" />
   <img src="ScreensImage/ShapeScreen.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/LearningScreen.png" width="200" alt="Превью 5" />
-  <img src="ScreensImage/ChatBot_1.png" width="200" alt="Превью 5" />
+  <img src="ScreensImage/ScreenChatBot_1.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/ChatBot_2.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/Achievement.png" width="200" alt="Превью 5" />
   <img src="ScreensImage/Statictic.png" width="200" alt="Превью 5" />
