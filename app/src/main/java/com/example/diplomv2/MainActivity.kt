@@ -129,9 +129,9 @@ class MainActivity : ComponentActivity() {
                                 when (currentRoute) {
                                     Screens.Welcome.route -> "Првиетсвую тебя"
                                     Screens.Main.route -> "Главная"
-                                    Screens.MathRails.route -> "Математические рельсы"
-                                    Screens.ExpressChallenge.route -> "Скоройстой экспресс"
-                                    Screens.GeometryStation.route -> "Геометрическая станция"
+                                    Screens.MathRails.route -> "Математическая игра"
+                                    Screens.ExpressChallenge.route -> "Быстрые задачки"
+                                    Screens.GeometryStation.route -> "Фигурки и формы"
                                     Screens.Game.route -> "Задачки"
                                     Screens.Learning.route -> "Обучайка"
                                     Screens.LearnAddition.route -> "Сложение"
