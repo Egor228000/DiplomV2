@@ -69,51 +69,49 @@ fun MainScreen(
 
         items(1) {
             CardTask(
-                "Математические рельсы",
-                "Решай задачки и собирай золотые звёздочки! Чем больше решишь — тем длиннее твой поезд!",
+                "Математическая игра",
+                "Решай задачки и получай золотые звёздочки! Чем больше решишь — тем круче твой результат!",
                 onClick = { navigation.navigate(Screens.MathRails.route) },
                 icon = R.drawable.train_rails_fz82f7vze0gd
             )
         }
         items(1) {
             CardTask(
-                "Скоростной экспресс",
-                "Успей решить максимум примеров, пока не упёрся в станцию! Тик-так, время пошло!",
+                "Быстрые задачки",
+                "Решай примеры как можно быстрее! Счётчик времени уже пошёл — успеешь набрать рекорд?",
                 onClick = {
                     expressQuizViewModel.resetGame()
-
                     navigation.navigate(Screens.ExpressChallenge.route)
-                          },
+                },
                 icon = R.drawable.express_qpl6mb6w73hk
             )
         }
         items(1) {
             CardTask(
-                "Геометрическая станция",
-                "Узнавай фигуры и собирай пазлы! Круглые колёса, квадратные окошки.",
+                "Фигурки и формы",
+                "Узнавай геометрические фигуры и собирай весёлые картинки из форм!",
                 onClick = {
                     shapeGameViewModel.resetGame()
                     navigation.navigate(Screens.GeometryStation.route)
-                          },
+                },
                 icon = R.drawable.geometry_3wedqpqf6cj4
             )
         }
         item {
             CardTask(
                 "Обучайка",
-                "Освой правила и секреты математики! Теория, примеры, подсказки — всё в одном месте.",
+                "Освой правила и секреты математики! Теория, примеры и полезные подсказки ждут тебя.",
                 onClick = { navigation.navigate(Screens.Learning.route) },
                 icon = R.drawable.learning_923qwd5bl1wh
             )
         }
         items(1) {
             Text(
-                "Новые вагончики с заданиями уже в пути! \uD83D\uDE82✨",
+                "Скоро появятся новые задания! ✨",
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 color = Color.Gray
             )
-
         }
     }
 }

@@ -40,7 +40,6 @@ fun CustomText(textText: String, modifier: Modifier, textStyle: TextStyle) {
         text = textText,
         style = textStyle,
         modifier = modifier,
-
     )
 }
 

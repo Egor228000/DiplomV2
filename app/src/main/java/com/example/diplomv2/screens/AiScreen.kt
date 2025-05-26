@@ -88,7 +88,7 @@ fun AiScreen(navController: NavHostController, aiBotViewModel: AiBotViewModel) {
         ) {
             if (listMessages.isEmpty()) {
                 items(1) {
-                        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.train))
+                        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty))
                         LottieAnimation(
                             composition = composition,
                             iterations = LottieConstants.IterateForever,

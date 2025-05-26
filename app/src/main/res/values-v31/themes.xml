@@ -3,7 +3,7 @@
 
     <style name="Theme.DiplomV2" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowSplashScreenBackground">@color/white</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/nerd_13ehf25vcxhb</item>
         <item name="android:windowSplashScreenAnimationDuration">100</item>
 
     </style>

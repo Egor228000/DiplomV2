@@ -17,15 +17,12 @@ enum class Screens(val route: String) {
     Statistics("statistics"),
     // Обучение
     Learning("learning"),
-
     // Экраны обучения
     LearnAddition("learn_addition"),
     LearnSubtraction("learn_subtraction"),
     LearnMultiplication("learn_multiplication"),
     LearnDivision("learn_division"),
     LearnShapes("learn_shapes"),
-
-
     // ИИ
     Ai("ai")
 }
